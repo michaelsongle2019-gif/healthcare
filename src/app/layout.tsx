@@ -20,6 +20,8 @@ export default function RootLayout({
         style={
           {
             "--font-display": '"Georgia", "Times New Roman", serif',
+            "--font-brand":
+              '"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif',
             "--font-body":
               '"Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif'
           } as CSSProperties
