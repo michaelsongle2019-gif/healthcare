@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Kangyu Medical",
   description: "Medical devices and consumables site with bilingual catalog and admin."
 };

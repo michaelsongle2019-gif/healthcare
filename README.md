@@ -78,6 +78,7 @@ Notes:
 
 - `DATABASE_FILE` can be omitted on Vercel. The app will automatically use temporary writable storage there.
 - Do not rely on runtime public file uploads on Vercel for permanent assets. For this temporary deployment flow, update product content through the repository instead.
+- A short click-through guide is available in `docs/vercel-deploy.md`.
 
 ## Backups
 
