@@ -67,7 +67,6 @@ This project can be published quickly through GitHub + Vercel for external viewi
 Recommended Vercel environment variables:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://your-vercel-domain.vercel.app
 SESSION_SECRET=replace-with-a-long-random-secret
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=ChangeMe123!
@@ -76,6 +75,7 @@ ADMIN_DISPLAY_NAME=Site Administrator
 
 Notes:
 
+- `NEXT_PUBLIC_SITE_URL` is optional on Vercel. The app can automatically use Vercel system domain variables when they are exposed.
 - `DATABASE_FILE` can be omitted on Vercel. The app will automatically use temporary writable storage there.
 - Do not rely on runtime public file uploads on Vercel for permanent assets. For this temporary deployment flow, update product content through the repository instead.
 - A short click-through guide is available in `docs/vercel-deploy.md`.

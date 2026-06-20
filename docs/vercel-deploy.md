@@ -14,7 +14,6 @@ This repository is ready for a temporary public deployment through Vercel.
 ## Required environment variables
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://your-project-name.vercel.app
 SESSION_SECRET=replace-with-a-long-random-secret
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=ChangeMe123!
@@ -23,6 +22,7 @@ ADMIN_DISPLAY_NAME=Site Administrator
 
 ## Notes
 
+- `NEXT_PUBLIC_SITE_URL` is optional on Vercel if the project exposes Vercel system environment variables.
 - The public-facing catalog should work well for temporary internet access.
 - The hosted deployment uses temporary writable storage, so do not treat runtime uploads and backups on Vercel as permanent storage.
 - Preferred update flow: edit repository content, push to GitHub, and let Vercel redeploy automatically.
