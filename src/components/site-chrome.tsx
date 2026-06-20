@@ -33,7 +33,13 @@ export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
       <header className="site-header">
         <div className="site-header-inner">
           <Link href={`/${locale}`} className="brand-block">
-            <span className="brand-mark">{companyName}</span>
+            <span
+              className={
+                locale === "zh" ? "brand-mark brand-mark-zh" : "brand-mark brand-mark-en"
+              }
+            >
+              {companyName}
+            </span>
             <span className="brand-caption">
               {locale === "zh"
                 ? "医疗器械与医用耗材展示平台"

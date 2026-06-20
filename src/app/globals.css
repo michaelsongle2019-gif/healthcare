@@ -75,9 +75,20 @@ img {
 
 .brand-mark {
   font-family: var(--font-brand), sans-serif;
-  font-size: 1.82rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  color: #173239;
+  line-height: 1.02;
+}
+
+.brand-mark-zh {
+  font-size: 1.78rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+}
+
+.brand-mark-en {
+  font-size: 1.72rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
