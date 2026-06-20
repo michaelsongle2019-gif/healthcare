@@ -139,8 +139,8 @@ function ensureColumn(
 
 function upsertDefaultSettings(db: Database.Database) {
   const defaults = {
-    companyNameZh: "曜衡医疗",
-    companyNameEn: "Aurexis Medical",
+    companyNameZh: "康洛医疗",
+    companyNameEn: "KANGLO MEDICAL",
     taglineZh: "国产医疗影像设备与介入耗材展示平台",
     taglineEn:
       "A presentation platform for domestic imaging systems and interventional consumables",
