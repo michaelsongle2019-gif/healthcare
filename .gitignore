@@ -1,0 +1,14 @@
+.next
+node_modules
+coverage
+*.log
+.vercel
+data/*.db
+data/*.sqlite
+data/backups
+tmp
+tmp-*.txt
+tmp-*.pdf
+_tmp_product_images
+_tmp_product_images_detailed
+dist
