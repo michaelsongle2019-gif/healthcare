@@ -23,15 +23,22 @@ export function ProductVisual({
   height: number;
 }) {
   const imageUrl = String(product.imageUrl || "").trim();
+  const localizedProductName = getLocalizedValue(
+    locale,
+    String(product.nameZh),
+    String(product.nameEn)
+  );
+  const localizedModelLabel =
+    locale === "en" && String(product.nameEn || "").trim()
+      ? String(product.nameEn)
+      : String(product.model);
 
   if (imageUrl) {
     return (
       <div className="product-visual-frame">
         <Image
           src={imageUrl}
-          alt={String(
-            getLocalizedValue(locale, String(product.nameZh), String(product.nameEn))
-          )}
+          alt={String(localizedProductName)}
           width={width}
           height={height}
           className="product-visual-image"
@@ -50,7 +57,7 @@ export function ProductVisual({
             String(product.manufacturerEn)
           )}
         </div>
-        <strong>{String(product.model)}</strong>
+        <strong>{localizedModelLabel}</strong>
         <span>{locale === "zh" ? "官方图片待补充" : "Official image pending"}</span>
       </div>
     </div>

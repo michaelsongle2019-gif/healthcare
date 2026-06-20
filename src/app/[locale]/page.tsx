@@ -79,7 +79,7 @@ export default async function LocaleHomePage({
                       href={`/${locale}/products/${String(product.slug)}`}
                       className="button"
                     >
-                      {locale === "zh" ? "查看产品详情" : "View product detail"}
+                      {locale === "zh" ? "查看产品详情" : "View Product Details"}
                     </Link>
                     <Link href={`/${locale}/products`} className="button secondary">
                       {dictionary.cta.products}
@@ -103,7 +103,7 @@ export default async function LocaleHomePage({
         </div>
       </section>
 
-      <section className="page-section">
+      <section className="page-section home-categories-section">
         <div className="category-strip">
           {categories.slice(0, 7).map((category) => (
             <Link
@@ -161,7 +161,7 @@ export default async function LocaleHomePage({
                     href={`/${locale}/products/${String(product.slug)}`}
                     className="more-link"
                   >
-                    more
+                    {locale === "zh" ? "更多" : "Learn more"}
                   </Link>
                 </p>
               </article>

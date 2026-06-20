@@ -40,16 +40,6 @@ export default async function ProductsPage({
   return (
     <section className="page-section">
       <div className="content-card">
-        <div className="section-heading">
-          <div>
-            <div className="eyebrow">{dictionary.labels.productCenter}</div>
-            <h1 className="page-title">{dictionary.nav.products}</h1>
-          </div>
-          <p className="section-copy compact-copy">
-            {dictionary.labels.portfolioSummary}
-          </p>
-        </div>
-
         <form className="filter-row product-filter-row">
           <input
             type="text"
@@ -120,7 +110,7 @@ export default async function ProductsPage({
                   href={`/${locale}/products/${String(product.slug)}`}
                   className="more-link"
                 >
-                  more
+                  {locale === "zh" ? "更多" : "Learn more"}
                 </Link>
               </p>
             </article>

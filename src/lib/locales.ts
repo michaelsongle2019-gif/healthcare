@@ -28,9 +28,9 @@ export const copy = {
       admin: "Admin"
     },
     cta: {
-      products: "Explore products",
-      documents: "View documents",
-      contact: "Talk to our team",
+      products: "Browse Products",
+      documents: "View Documents",
+      contact: "Contact Our Team",
       request: "Request access",
       download: "Direct download",
       send: "Send request"
@@ -49,7 +49,7 @@ export const copy = {
       category: "Category",
       allCategories: "All Categories",
       featured: "Featured Products",
-      publicAccess: "Public download",
+      publicAccess: "Open Access",
       protectedAccess: "Request required",
       requestSuccess:
         "Your request has been submitted. Our team will contact you shortly.",
@@ -57,11 +57,11 @@ export const copy = {
         "Thank you. Your inquiry has been received and our team will follow up soon.",
       curatedPortfolio: "Curated Portfolio",
       portfolioSummary:
-        "Real product images, official product names, and structured public specifications for a cleaner medical catalog presentation.",
-      matchedProducts: "Matched products",
-      useScenarios: "Use Scenarios",
+        "Authentic product imagery, official product naming, and structured public specifications presented with a cleaner medical-device website standard.",
+      matchedProducts: "Matching Products",
+      useScenarios: "Intended Use",
       keySpecifications: "Key Specifications",
-      deliveryDocuments: "Delivery & Documents",
+      deliveryDocuments: "Registration & Delivery",
       officialDocumentEntry: "Official Document Entry"
     }
   },

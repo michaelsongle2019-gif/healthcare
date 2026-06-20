@@ -72,8 +72,8 @@ for (const product of products) {
 
   insertDocument.run(
     productId,
-    `${product.model} 官方来源`,
-    `${product.model} Official Source`,
+    `${product.nameZh} 官方来源`,
+    `${product.nameEn || product.model} Official Source`,
     "用于核对官网来源、公开规格和监管信息。",
     "Used to review official source pages, public specifications, and regulatory references.",
     "public",

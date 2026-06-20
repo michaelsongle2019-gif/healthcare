@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { copy, localeNames, type Locale } from "@/lib/locales";
+import { copy, type Locale } from "@/lib/locales";
 
 type SiteChromeProps = {
   locale: Locale;
@@ -14,6 +14,17 @@ const navItems = [
   { key: "contact", href: "/contact" }
 ] as const;
 
+const localeSwitchLabels: Record<Locale, Record<Locale, string>> = {
+  en: {
+    en: "English",
+    zh: "Chinese"
+  },
+  zh: {
+    en: "English",
+    zh: "中文"
+  }
+};
+
 export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
   const dictionary = copy[locale];
 
@@ -26,7 +37,7 @@ export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
             <span className="brand-caption">
               {locale === "zh"
                 ? "医疗器械与医用耗材展示平台"
-                : "medical devices and consumables"}
+                : "Medical devices and consumables showcase platform"}
             </span>
           </Link>
           <nav className="site-nav">
@@ -47,7 +58,7 @@ export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
                 href={`/${targetLocale}`}
                 className={targetLocale === locale ? "active" : ""}
               >
-                {localeNames[targetLocale]}
+                {localeSwitchLabels[locale][targetLocale]}
               </Link>
             ))}
             <Link
@@ -56,7 +67,7 @@ export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
               aria-label={dictionary.nav.admin}
               title={dictionary.nav.admin}
             >
-              管理
+              {dictionary.nav.admin}
             </Link>
           </div>
         </div>

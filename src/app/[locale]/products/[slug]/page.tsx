@@ -74,6 +74,15 @@ export default async function ProductDetailPage({
   const gallery = showcase?.gallery.length
     ? showcase.gallery
     : getFallbackGallery(product);
+  const englishProductName = getLocalizedValue(
+    "en",
+    String(product.nameZh),
+    String(product.nameEn)
+  );
+  const localizedModelLabel =
+    locale === "en" && String(product.nameEn || "").trim()
+      ? String(product.nameEn)
+      : String(product.model);
 
   return (
     <section className="page-section product-detail-page">
@@ -123,19 +132,13 @@ export default async function ProductDetailPage({
             <div className="detail-meta-grid">
               <div className="meta-tile">
                 <div className="small">
-                  {locale === "zh" ? "正式英文名" : "Official English Name"}
+                  {locale === "zh" ? "正式英文名" : "English Product Name"}
                 </div>
-                <strong>
-                  {getLocalizedValue(
-                    "en",
-                    String(product.nameZh),
-                    String(product.nameEn)
-                  )}
-                </strong>
+                <strong>{englishProductName}</strong>
               </div>
               <div className="meta-tile">
                 <div className="small">{locale === "zh" ? "型号" : "Model"}</div>
-                <strong>{String(product.model)}</strong>
+                <strong>{localizedModelLabel}</strong>
               </div>
               <div className="meta-tile">
                 <div className="small">{locale === "zh" ? "产品分类" : "Category"}</div>
@@ -149,7 +152,7 @@ export default async function ProductDetailPage({
               </div>
               <div className="meta-tile">
                 <div className="small">
-                  {locale === "zh" ? "资料来源" : "Document source"}
+                  {locale === "zh" ? "资料来源" : "Source Basis"}
                 </div>
                 <strong>
                   {locale === "zh"
@@ -342,7 +345,7 @@ export default async function ProductDetailPage({
                     {document.accessLevel === "public"
                       ? locale === "zh"
                         ? "查看来源"
-                        : "Open source"
+                        : "View source"
                       : dictionary.cta.request}
                   </Link>
                 </div>
