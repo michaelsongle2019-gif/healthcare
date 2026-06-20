@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { ensureLocale, copy } from "@/lib/locales";
+import { submitDocumentRequestAction } from "@/app/actions/public";
 import {
   canDirectDownload,
   getLocalizedValue,
   isProtectedDocument
 } from "@/lib/content";
+import { ensureLocale, copy } from "@/lib/locales";
 import { listDocuments } from "@/lib/repository";
-import { submitDocumentRequestAction } from "@/app/actions/public";
 
 export default async function DocumentsPage({
   params,
@@ -23,16 +23,6 @@ export default async function DocumentsPage({
 
   return (
     <section className="page-section">
-      <div className="content-card">
-        <div className="eyebrow">{dictionary.labels.documentCenter}</div>
-        <h1 className="page-title">{dictionary.nav.documents}</h1>
-        <p className="section-copy">
-          {locale === "zh"
-            ? "公开资料可直接查看或下载，受控资料需先提交申请，便于销售团队按区域和项目进行跟进。"
-            : "Public brochures are immediately available, while controlled packs are requested first to support compliant commercial follow-up."}
-        </p>
-      </div>
-
       {status === "success" ? (
         <div className="page-section">
           <div className="status-banner">{dictionary.labels.requestSuccess}</div>
