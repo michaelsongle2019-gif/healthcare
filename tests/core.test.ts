@@ -1,10 +1,13 @@
 import { describe, expect, test } from "vitest";
 import {
+  authenticateAdminCredentials,
   createSessionToken,
   getDefaultAdminCredentials,
   verifyPassword,
   verifySessionToken
 } from "@/lib/auth";
+import { createDatabase, initializeDatabase } from "@/lib/db";
+import { updateAdminPassword } from "@/lib/repository";
 import {
   canDirectDownload,
   getCatalogCardSummary,
@@ -32,6 +35,25 @@ describe("authentication helpers", () => {
       username: "admin",
       role: "admin"
     });
+  });
+
+  test("database-backed admin password overrides the default password", async () => {
+    const db = createDatabase(":memory:");
+    initializeDatabase(db);
+
+    const credentials = getDefaultAdminCredentials();
+    await updateAdminPassword(credentials.username, "NewSecurePass456!", db);
+
+    await expect(
+      authenticateAdminCredentials(credentials.username, "NewSecurePass456!", db)
+    ).resolves.toMatchObject({
+      displayName: credentials.displayName,
+      username: credentials.username
+    });
+
+    await expect(
+      authenticateAdminCredentials(credentials.username, credentials.password, db)
+    ).resolves.toBeNull();
   });
 });
 
@@ -66,16 +88,45 @@ describe("content helpers", () => {
         "图迈 胸腹腔内窥镜手术系统",
         "EN pending: 图迈 胸腹腔内窥镜手术系统"
       )
-    ).toBe("图迈 胸腹腔内窥镜手术系统");
+    ).toBe("");
   });
 
-  test("structured info rows extract labeled compliance fields", () => {
+  test("localized values strip confidential price copy", () => {
+    expect(
+      getLocalizedValue(
+        "zh",
+        "用于常规临床扫描\n价格参考：约 500 万元",
+        ""
+      )
+    ).toBe("用于常规临床扫描");
+
+    expect(
+      getLocalizedValue(
+        "en",
+        "",
+        "Routine clinical imaging\nPrice Reference: Approx. USD 1.2M"
+      )
+    ).toBe("Routine clinical imaging");
+  });
+
+  test("english localization normalizes Chinese regulatory prefixes", () => {
+    expect(
+      getLocalizedValue(
+        "en",
+        "",
+        "Registration Certificate / NMPA: 国械注准20223010509\nRegulatory Class: III类"
+      )
+    ).toBe(
+      "Registration Certificate / NMPA: NMPA Registration No. 20223010509\nRegulatory Class: Class III"
+    );
+  });
+
+  test("structured info rows exclude price-related lines", () => {
     const rows = getStructuredInfoRows(
       "价格参考：约1100-1500万元（原表）\n注册证号 / NMPA：国械注准20223010108\n管理类别：III类"
     );
 
     expect(rows).toEqual([
-      { label: "价格参考", value: "约1100-1500万元（原表）" },
       { label: "注册证号 / NMPA", value: "国械注准20223010108" },
       { label: "管理类别", value: "III类" }
     ]);

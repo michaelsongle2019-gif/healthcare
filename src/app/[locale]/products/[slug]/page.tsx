@@ -10,7 +10,9 @@ import {
 import { copy, ensureLocale } from "@/lib/locales";
 import {
   getFallbackGallery,
-  getProductShowcase
+  getCatalogBenchmark,
+  getProductShowcase,
+  getShowcaseFallbackProduct
 } from "@/lib/product-showcase";
 import { findProductBySlug, listDocuments, listProducts } from "@/lib/repository";
 
@@ -22,13 +24,14 @@ export default async function ProductDetailPage({
   const { locale: rawLocale, slug } = await params;
   const locale = ensureLocale(rawLocale);
   const dictionary = copy[locale];
-  const product = findProductBySlug(slug);
+  const product = findProductBySlug(slug) ?? getShowcaseFallbackProduct(slug);
 
   if (!product) {
     notFound();
   }
 
   const showcase = getProductShowcase(slug);
+  const benchmark = showcase?.benchmark ?? getCatalogBenchmark(slug);
   const documents = listDocuments().filter(
     (document) => String(document.productId || "") === String(product.id)
   );
@@ -63,6 +66,7 @@ export default async function ProductDetailPage({
       String(product.packagingEn)
     )
   );
+
   const packagingRows = getStructuredInfoRows(
     getLocalizedValue(
       locale,
@@ -74,15 +78,88 @@ export default async function ProductDetailPage({
   const gallery = showcase?.gallery.length
     ? showcase.gallery
     : getFallbackGallery(product);
+
   const englishProductName = getLocalizedValue(
     "en",
     String(product.nameZh),
     String(product.nameEn)
   );
+
   const localizedModelLabel =
     locale === "en" && String(product.nameEn || "").trim()
       ? String(product.nameEn)
       : String(product.model);
+
+  const labels =
+    locale === "zh"
+      ? {
+          useEyebrow: "适用场景",
+          useTitle: dictionary.labels.useScenarios,
+          specEyebrow: dictionary.labels.keySpecifications,
+          specTitle: showcase?.specRows.length
+            ? "详细技术参数"
+            : dictionary.labels.keySpecifications,
+          complianceEyebrow: "合规与交付信息",
+          complianceTitle: "注册与交付信息",
+          sourcesEyebrow: "官方来源与资料",
+          sourcesTitle: "官网来源入口",
+          relatedEyebrow: dictionary.labels.relatedProducts,
+          englishNameLabel: "正式英文名",
+          modelLabel: "型号",
+          categoryLabel: "产品分类",
+          sourceLabel: "资料来源",
+          sourceValue: "基于公开官方资料整理",
+          galleryEyebrow: "设备图集",
+          galleryTitle: "更多设备视角",
+          highlightsEyebrow: "核心功能",
+          highlightsTitle: "公开资料要点整理",
+          benchmarkTableTitle: "参数与功能对比",
+          benchmarkItemLabel: "对比项",
+          benchmarkOurLabel: "",
+          benchmarkPeerLabel: "",
+          viewSourceLabel: "查看来源"
+        }
+      : {
+          useEyebrow: "Applications",
+          useTitle: dictionary.labels.useScenarios,
+          specEyebrow: "Public Specifications",
+          specTitle: showcase?.specRows.length
+            ? "Technical Specifications"
+            : dictionary.labels.keySpecifications,
+          complianceEyebrow: "Registration",
+          complianceTitle: "Regulatory & Commercial Notes",
+          sourcesEyebrow: "Official Sources",
+          sourcesTitle: "Official Reference Links",
+          relatedEyebrow: "Same Category",
+          englishNameLabel: "English Product Name",
+          modelLabel: "Model",
+          categoryLabel: "Category",
+          sourceLabel: "Source Reference",
+          sourceValue: "Compiled from public official materials",
+          galleryEyebrow: "Product Gallery",
+          galleryTitle: "More Product Views",
+          highlightsEyebrow: "Key Highlights",
+          highlightsTitle: "Structured Public Highlights",
+          benchmarkTableTitle: "Specification comparison",
+          benchmarkItemLabel: "Item",
+          benchmarkOurLabel: "",
+          benchmarkPeerLabel: "",
+          viewSourceLabel: "View source"
+        };
+
+  const benchmarkOurLabel =
+    benchmark
+      ? locale === "zh"
+        ? benchmark.ourLabelZh
+        : benchmark.ourLabelEn
+      : labels.benchmarkOurLabel;
+
+  const benchmarkPeerLabel =
+    benchmark
+      ? locale === "zh"
+        ? benchmark.benchmarkLabelZh
+        : benchmark.benchmarkLabelEn
+      : labels.benchmarkPeerLabel;
 
   return (
     <section className="page-section product-detail-page">
@@ -118,30 +195,17 @@ export default async function ProductDetailPage({
                     String(product.nameEn)
                   )}
             </h1>
-            <p className="section-copy">
-              {showcase
-                ? locale === "zh"
-                  ? showcase.heroBodyZh
-                  : showcase.heroBodyEn
-                : getLocalizedValue(
-                    locale,
-                    String(product.summaryZh),
-                    String(product.summaryEn)
-                  )}
-            </p>
             <div className="detail-meta-grid">
               <div className="meta-tile">
-                <div className="small">
-                  {locale === "zh" ? "正式英文名" : "English Product Name"}
-                </div>
+                <div className="small">{labels.englishNameLabel}</div>
                 <strong>{englishProductName}</strong>
               </div>
               <div className="meta-tile">
-                <div className="small">{locale === "zh" ? "型号" : "Model"}</div>
+                <div className="small">{labels.modelLabel}</div>
                 <strong>{localizedModelLabel}</strong>
               </div>
               <div className="meta-tile">
-                <div className="small">{locale === "zh" ? "产品分类" : "Category"}</div>
+                <div className="small">{labels.categoryLabel}</div>
                 <strong>
                   {getLocalizedValue(
                     locale,
@@ -151,14 +215,8 @@ export default async function ProductDetailPage({
                 </strong>
               </div>
               <div className="meta-tile">
-                <div className="small">
-                  {locale === "zh" ? "资料来源" : "Source Basis"}
-                </div>
-                <strong>
-                  {locale === "zh"
-                    ? "基于公开官方资料整理"
-                    : "Adapted from public official materials"}
-                </strong>
+                <div className="small">{labels.sourceLabel}</div>
+                <strong>{labels.sourceValue}</strong>
               </div>
             </div>
           </div>
@@ -173,25 +231,14 @@ export default async function ProductDetailPage({
         <div className="page-section">
           <div className="section-heading">
             <div>
-              <div className="eyebrow">
-                {locale === "zh" ? "设备图集" : "Product Gallery"}
-              </div>
-              <h2 className="section-title">
-                {locale === "zh" ? "更多设备视角" : "More Product Views"}
-              </h2>
+              <div className="eyebrow">{labels.galleryEyebrow}</div>
+              <h2 className="section-title">{labels.galleryTitle}</h2>
             </div>
           </div>
           <div className="gallery-grid">
             {gallery.map((imageUrl) => (
               <div key={imageUrl} className="content-card gallery-card">
-                <img
-                  src={imageUrl}
-                  alt={getLocalizedValue(
-                    "en",
-                    String(product.nameZh),
-                    String(product.nameEn)
-                  )}
-                />
+                <img src={imageUrl} alt={englishProductName} />
               </div>
             ))}
           </div>
@@ -202,12 +249,8 @@ export default async function ProductDetailPage({
         <div className="page-section">
           <div className="section-heading">
             <div>
-              <div className="eyebrow">
-                {locale === "zh" ? "核心功能" : "Core Highlights"}
-              </div>
-              <h2 className="section-title">
-                {locale === "zh" ? "公开资料要点整理" : "Structured Public Highlights"}
-              </h2>
+              <div className="eyebrow">{labels.highlightsEyebrow}</div>
+              <h2 className="section-title">{labels.highlightsTitle}</h2>
             </div>
           </div>
           <div className="three-grid">
@@ -237,8 +280,8 @@ export default async function ProductDetailPage({
 
       <div className="page-section two-grid">
         <div className="content-card detail-stack">
-          <div className="eyebrow">{dictionary.labels.useScenarios}</div>
-          <h2 className="section-title">{dictionary.labels.useScenarios}</h2>
+          <div className="eyebrow">{labels.useEyebrow}</div>
+          <h2 className="section-title">{labels.useTitle}</h2>
           <ul className="spec-list">
             {applicationPoints.map((item) => (
               <li key={item}>{item}</li>
@@ -247,14 +290,8 @@ export default async function ProductDetailPage({
         </div>
 
         <div className="content-card detail-stack">
-          <div className="eyebrow">{dictionary.labels.keySpecifications}</div>
-          <h2 className="section-title">
-            {showcase?.specRows.length
-              ? locale === "zh"
-                ? "详细技术参数"
-                : "Technical Specifications"
-              : dictionary.labels.keySpecifications}
-          </h2>
+          <div className="eyebrow">{labels.specEyebrow}</div>
+          <h2 className="section-title">{labels.specTitle}</h2>
           {showcase?.specRows.length ? (
             <div className="spec-table">
               {showcase.specRows.map((row) => (
@@ -278,14 +315,59 @@ export default async function ProductDetailPage({
         </div>
       </div>
 
+      {benchmark ? (
+        <div className="page-section">
+          <div className="content-card detail-stack">
+            <div className="eyebrow">
+              {locale === "zh" ? benchmark.eyebrowZh : benchmark.eyebrowEn}
+            </div>
+            <h2 className="section-title">
+              {locale === "zh" ? benchmark.titleZh : benchmark.titleEn}
+            </h2>
+            <p className="section-copy">
+              {locale === "zh"
+                ? benchmark.publicSummaryZh
+                : benchmark.publicSummaryEn}
+            </p>
+            <div className="detail-stack">
+              <h3>{labels.benchmarkTableTitle}</h3>
+              <div className="comparison-table">
+                <div className="comparison-table-row comparison-table-head">
+                  <div className="comparison-table-cell comparison-table-label">
+                    {labels.benchmarkItemLabel}
+                  </div>
+                  <div className="comparison-table-cell comparison-table-value">
+                    {benchmarkOurLabel}
+                  </div>
+                  <div className="comparison-table-cell comparison-table-value">
+                    {benchmarkPeerLabel}
+                  </div>
+                </div>
+                {benchmark.comparisonRows.map((row) => (
+                  <div key={row.labelEn} className="comparison-table-row">
+                    <div className="comparison-table-cell comparison-table-label">
+                      {locale === "zh" ? row.labelZh : row.labelEn}
+                    </div>
+                    <div className="comparison-table-cell comparison-table-value">
+                      {locale === "zh" ? row.ourValueZh : row.ourValueEn}
+                    </div>
+                    <div className="comparison-table-cell comparison-table-value">
+                      {locale === "zh"
+                        ? row.benchmarkValueZh
+                        : row.benchmarkValueEn}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       <div className="page-section two-grid">
         <div className="content-card detail-stack">
-          <div className="eyebrow">
-            {locale === "zh" ? "合规与交付信息" : "Compliance & Delivery"}
-          </div>
-          <h2 className="section-title">
-            {locale === "zh" ? "注册与交付信息" : "Registration & Delivery"}
-          </h2>
+          <div className="eyebrow">{labels.complianceEyebrow}</div>
+          <h2 className="section-title">{labels.complianceTitle}</h2>
           {packagingRows.length >= 2 ? (
             <div className="spec-table">
               {packagingRows.map((row) => (
@@ -305,12 +387,8 @@ export default async function ProductDetailPage({
         </div>
 
         <div className="content-card detail-stack">
-          <div className="eyebrow">
-            {locale === "zh" ? "官方来源与资料" : "Official Sources & Documents"}
-          </div>
-          <h2 className="section-title">
-            {locale === "zh" ? "官网来源入口" : "Official Source Entry"}
-          </h2>
+          <div className="eyebrow">{labels.sourcesEyebrow}</div>
+          <h2 className="section-title">{labels.sourcesTitle}</h2>
           <div className="document-stack">
             {documents.map((document) => {
               const directDownload = canDirectDownload({
@@ -343,9 +421,7 @@ export default async function ProductDetailPage({
                     rel={directDownload ? "noreferrer" : undefined}
                   >
                     {document.accessLevel === "public"
-                      ? locale === "zh"
-                        ? "查看来源"
-                        : "View source"
+                      ? labels.viewSourceLabel
                       : dictionary.cta.request}
                   </Link>
                 </div>
@@ -357,7 +433,7 @@ export default async function ProductDetailPage({
 
       {relatedProducts.length > 0 ? (
         <div className="page-section">
-          <div className="eyebrow">{dictionary.labels.relatedProducts}</div>
+          <div className="eyebrow">{labels.relatedEyebrow}</div>
           <h2 className="section-title">{dictionary.labels.relatedProducts}</h2>
           <div className="three-grid">
             {relatedProducts.map((entry) => (

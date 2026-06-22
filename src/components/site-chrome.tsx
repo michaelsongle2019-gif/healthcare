@@ -43,7 +43,7 @@ export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
             <span className="brand-caption">
               {locale === "zh"
                 ? "医疗器械与医用耗材展示平台"
-                : "Medical devices and consumables showcase platform"}
+                : "Bilingual portfolio of medical devices and consumables"}
             </span>
           </Link>
           <nav className="site-nav">
@@ -85,7 +85,7 @@ export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
           <div>
             {locale === "zh"
               ? "双语产品展示、资料下载与后台维护。"
-              : "Bilingual product catalog, document center, and admin console."}
+              : "Bilingual product portfolio, document center, and administration console."}
           </div>
         </div>
       </footer>

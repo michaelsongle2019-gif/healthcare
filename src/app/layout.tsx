@@ -7,8 +7,9 @@ const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Kangyu Medical",
-  description: "Medical devices and consumables site with bilingual catalog and admin."
+  title: "KANGLO MEDICAL",
+  description:
+    "Professional bilingual presentation of authentic medical devices, consumables, official references, and product-ready technical information."
 };
 
 export default function RootLayout({

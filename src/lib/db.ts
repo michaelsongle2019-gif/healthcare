@@ -143,21 +143,21 @@ function upsertDefaultSettings(db: Database.Database) {
     companyNameEn: "KANGLO MEDICAL",
     taglineZh: "国产医疗影像设备与介入耗材展示平台",
     taglineEn:
-      "A presentation platform for domestic imaging systems and interventional consumables",
+      "A bilingual presentation platform for authentic medical devices and consumables",
     addressZh: "中国上海张江高端医疗产业园 88 号",
     addressEn: "88 Advanced MedTech Park, Zhangjiang, Shanghai, China",
     phone: "+86 21 5555 8800",
     email: "bd@aurexismedical.example",
     heroTitleZh: "让国产高端医疗设备，被采购团队一眼看懂",
-    heroTitleEn: "Present domestic high-end medtech with buyer-friendly clarity",
+    heroTitleEn: "Professional Presentation of Authentic Medical Product Lines",
     heroBodyZh:
       "面向医院集团、经销渠道与国际项目采购，集中展示国产医疗影像设备、介入耗材及其配套资料。",
     heroBodyEn:
-      "Built for hospital groups, distributors, and international sourcing teams to review domestic imaging systems, interventional consumables, and related documents.",
+      "Designed for hospitals, channel partners, and project teams to review authentic product naming, public specifications, official references, and category-level device portfolios.",
     seoDescriptionZh:
-      "曜衡医疗展示国产医疗影像设备、介入耗材、官方资料入口与项目沟通能力。",
+      "康洛医疗展示国产医疗影像设备、介入耗材、官方资料入口与项目沟通能力。",
     seoDescriptionEn:
-      "Aurexis Medical presents domestic imaging systems, interventional consumables, official document links, and project-ready product content."
+      "Professional bilingual presentation of authentic medical devices, consumables, official references, and product-ready technical information."
   };
 
   const statement = db.prepare(

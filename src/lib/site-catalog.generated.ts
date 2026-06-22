@@ -500,7 +500,7 @@ export const realProducts = [
     "specificationsEn": "Mindray's official website and news page publicly disclose the following highlights: 5.6 mm large-pupil-distance binocular 3D vision, dual native 4K image chains, integrated white-light + ICG fluorescence imaging, and automatic scope rotation correction.",
     "packagingZh": "价格参考：全套约64-71万元（原表）\n注册证号 / NMPA：待 NMPA 官网按型号进一步核验\n注册证名称：待核验（迈瑞 4K三维内窥镜荧光摄影系统）\n管理类别：待核验\n注册人 / 持证人：深圳迈瑞生物医疗电子股份有限公司（厂家）\nNMPA核验状态：已锁定到厂家官网型号 UX5，但未在本轮公开检索中一对一锁定证号。",
     "packagingEn": "Price Reference: Full set, approx. CNY 640,000-710,000 (from the original sheet)\nRegistration Certificate / NMPA: Pending further model-level verification on the NMPA website\nRegistered Product Name: Pending verification (Mindray 4K 3D Fluorescence Endoscopic Imaging System)\nRegulatory Class: Pending verification\nRegistrant / Certificate Holder: Shenzhen Mindray Bio-Medical Electronics Co., Ltd. (manufacturer)\nNMPA Verification Status: The UX5 model has been identified on the manufacturer's official website, but the corresponding certificate number has not been locked one-to-one in this round of public searches.",
-    "imageUrl": "https://www.mindray.com/content/dam/xpace/en/products-solutions/products/laparoscopic-products/endoscope-camera-system/ux5/master1.jpg",
+    "imageUrl": "/uploads/images/hypixel-ux5-unified-card.png",
     "sourceUrl": "https://www.mindray.com/en/products/laparoscopic-products/hypixel-ux5",
     "featured": 1,
     "seoTitleZh": "HyPixel UX5 4K三维内窥镜荧光摄影系统",

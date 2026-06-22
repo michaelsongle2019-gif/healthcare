@@ -39,7 +39,8 @@ export default async function ProductsPage({
 
   return (
     <section className="page-section">
-      <div className="content-card">
+      <div className="content-card product-center-header">
+        <h1 className="page-title">{dictionary.nav.products}</h1>
         <form className="filter-row product-filter-row">
           <input
             type="text"
@@ -64,12 +65,12 @@ export default async function ProductsPage({
 
         <div className="result-bar small">
           {locale === "zh"
-            ? `${dictionary.labels.matchedProducts}：${products.length}`
+            ? `当前匹配产品: ${products.length}`
             : `${dictionary.labels.matchedProducts}: ${products.length}`}
         </div>
       </div>
 
-      <div className="page-section card-grid">
+      <div className="card-grid product-results-grid">
         {products.map((product) => {
           const intro = truncateDisplayText(
             getCatalogCardSummary(locale, {
@@ -104,15 +105,15 @@ export default async function ProductsPage({
                   )}
                 </Link>
               </h3>
-              <p className="card-copy">
-                {intro.text}{" "}
+              <div className="product-card-copy">
+                <p className="card-copy card-copy-text">{intro.text}</p>
                 <Link
                   href={`/${locale}/products/${String(product.slug)}`}
                   className="more-link"
                 >
                   {locale === "zh" ? "更多" : "Learn more"}
                 </Link>
-              </p>
+              </div>
             </article>
           );
         })}

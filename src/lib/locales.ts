@@ -31,12 +31,12 @@ export const copy = {
       products: "Browse Products",
       documents: "View Documents",
       contact: "Contact Our Team",
-      request: "Request access",
-      download: "Direct download",
-      send: "Send request"
+      request: "Request Access",
+      download: "Open Source Page",
+      send: "Send Inquiry"
     },
     labels: {
-      productCenter: "Product Center",
+      productCenter: "Product Portfolio",
       documentCenter: "Document Center",
       latestNews: "Latest News",
       contactUs: "Contact Us",
@@ -57,12 +57,12 @@ export const copy = {
         "Thank you. Your inquiry has been received and our team will follow up soon.",
       curatedPortfolio: "Curated Portfolio",
       portfolioSummary:
-        "Authentic product imagery, official product naming, and structured public specifications presented with a cleaner medical-device website standard.",
+        "Authentic product imagery, official model naming, and structured public specifications presented to a professional medical-device website standard.",
       matchedProducts: "Matching Products",
       useScenarios: "Intended Use",
       keySpecifications: "Key Specifications",
       deliveryDocuments: "Registration & Delivery",
-      officialDocumentEntry: "Official Document Entry"
+      officialDocumentEntry: "Official Reference Entry"
     }
   },
   zh: {
@@ -74,14 +74,14 @@ export const copy = {
       news: "新闻动态",
       certifications: "认证资质",
       contact: "联系我们",
-      admin: "后台"
+      admin: "管理"
     },
     cta: {
       products: "查看产品",
       documents: "查看资料",
       contact: "联系团队",
       request: "提交申请",
-      download: "直接下载",
+      download: "直接查看",
       send: "提交表单"
     },
     labels: {
@@ -98,7 +98,7 @@ export const copy = {
       category: "产品分类",
       allCategories: "全部分类",
       featured: "重点产品",
-      publicAccess: "公开下载",
+      publicAccess: "公开查看",
       protectedAccess: "申请后获取",
       requestSuccess: "资料申请已提交，我们会尽快与您联系。",
       inquirySuccess: "询盘已提交，团队会尽快跟进。",

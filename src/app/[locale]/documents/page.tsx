@@ -23,6 +23,16 @@ export default async function DocumentsPage({
 
   return (
     <section className="page-section">
+      <div className="content-card">
+        <div className="eyebrow">{dictionary.labels.documentCenter}</div>
+        <h1 className="page-title">{dictionary.nav.documents}</h1>
+        <p className="section-copy">
+          {locale === "zh"
+            ? "公开资料可直接查看或下载；如为受控资料，请先提交申请，便于后续合规沟通与项目跟进。"
+            : "Official source pages and public reference materials are available for direct review. Controlled materials can be requested for compliant project follow-up."}
+        </p>
+      </div>
+
       {status === "success" ? (
         <div className="page-section">
           <div className="status-banner">{dictionary.labels.requestSuccess}</div>
@@ -75,23 +85,48 @@ export default async function DocumentsPage({
                 />
                 <label>
                   {locale === "zh" ? "公司名称" : "Company"}
-                  <input name="company" required />
+                  <input
+                    name="company"
+                    required
+                    placeholder={locale === "zh" ? "请输入公司名称" : "Enter company name"}
+                  />
                 </label>
                 <label>
                   {locale === "zh" ? "联系人" : "Name"}
-                  <input name="name" required />
+                  <input
+                    name="name"
+                    required
+                    placeholder={locale === "zh" ? "请输入联系人姓名" : "Enter contact name"}
+                  />
                 </label>
                 <label>
                   Email
-                  <input type="email" name="email" required />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder={locale === "zh" ? "请输入邮箱" : "Enter email address"}
+                  />
                 </label>
                 <label>
                   {locale === "zh" ? "电话" : "Phone"}
-                  <input name="phone" required />
+                  <input
+                    name="phone"
+                    required
+                    placeholder={locale === "zh" ? "请输入联系电话" : "Enter phone number"}
+                  />
                 </label>
                 <label>
                   {locale === "zh" ? "申请说明" : "Message"}
-                  <textarea name="message" required />
+                  <textarea
+                    name="message"
+                    required
+                    placeholder={
+                      locale === "zh"
+                        ? "请说明所需资料或项目背景"
+                        : "Please describe the document need or project background"
+                    }
+                  />
                 </label>
                 <button type="submit">{dictionary.cta.request}</button>
               </form>

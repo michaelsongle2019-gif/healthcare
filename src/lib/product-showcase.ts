@@ -1,4 +1,6 @@
-import type { ProductRecord } from "@/lib/repository";
+﻿import type { ProductRecord } from "@/lib/repository";
+
+import { realProducts } from "@/lib/site-catalog.generated";
 
 export type HeroSlide = {
   slug: string;
@@ -27,6 +29,36 @@ export type ProductSpecRow = {
   valueEn: string;
 };
 
+export type ProductBenchmarkRow = {
+  labelZh: string;
+  labelEn: string;
+  ourValueZh: string;
+  ourValueEn: string;
+  benchmarkValueZh: string;
+  benchmarkValueEn: string;
+};
+
+export type ProductBenchmarkShowcase = {
+  eyebrowZh: string;
+  eyebrowEn: string;
+  titleZh: string;
+  titleEn: string;
+  ourLabelZh: string;
+  ourLabelEn: string;
+  benchmarkLabelZh: string;
+  benchmarkLabelEn: string;
+  publicSummaryZh: string;
+  publicSummaryEn: string;
+  comparisonRows: ProductBenchmarkRow[];
+  internalReference: {
+    brand: string;
+    model: string;
+    reasonZh: string;
+    reasonEn: string;
+    sourceLinks: string[];
+  };
+};
+
 export type ProductDetailShowcase = {
   heroLabelZh: string;
   heroLabelEn: string;
@@ -37,6 +69,7 @@ export type ProductDetailShowcase = {
   gallery: string[];
   featureBlocks: ProductFeatureBlock[];
   specRows: ProductSpecRow[];
+  benchmark?: ProductBenchmarkShowcase;
 };
 
 export const heroSlides: HeroSlide[] = [
@@ -1068,11 +1101,668 @@ const showcaseBySlug: Record<string, ProductDetailShowcase> = {
   }
 };
 
+const categoryBenchmarkTemplates: Record<
+  string,
+  {
+    benchmarkLabelZh: string;
+    benchmarkLabelEn: string;
+    brand: string;
+    model: string;
+    publicSummaryZh: string;
+    publicSummaryEn: string;
+    comparisonRows: ProductBenchmarkRow[];
+  }
+> = {
+  "ultrasonic-surgery-systems-consumables": {
+    benchmarkLabelZh: "ETHICON HARMONIC",
+    benchmarkLabelEn: "ETHICON HARMONIC",
+    brand: "ETHICON",
+    model: "HARMONIC",
+    publicSummaryZh:
+      "按超声能量平台的公开定位整理，用于在详情页中呈现国产超声刀系统与国际主流超声能量平台的公开对标结构。",
+    publicSummaryEn:
+      "Structured around public positioning for ultrasonic energy platforms so the detail page can present a clean comparison against mainstream international ultrasonic surgery systems.",
+    comparisonRows: [
+      {
+        labelZh: "公开对标平台",
+        labelEn: "Benchmark platform",
+        ourValueZh: "当前产品对应国产公开样板",
+        ourValueEn: "Current domestic public-facing product sample",
+        benchmarkValueZh: "ETHICON HARMONIC",
+        benchmarkValueEn: "ETHICON HARMONIC"
+      },
+      {
+        labelZh: "产品定位",
+        labelEn: "Product positioning",
+        ourValueZh: "超声软组织切割止血系统与配套耗材",
+        ourValueEn: "Ultrasonic soft-tissue cutting and hemostasis system with matching consumables",
+        benchmarkValueZh: "主流超声能量手术平台",
+        benchmarkValueEn: "Mainstream ultrasonic energy surgery platform"
+      },
+      {
+        labelZh: "应用场景",
+        labelEn: "Primary application",
+        ourValueZh: "开放与腔镜软组织切割止血",
+        ourValueEn: "Open and laparoscopic soft-tissue cutting and hemostasis",
+        benchmarkValueZh: "开放与腔镜能量手术场景",
+        benchmarkValueEn: "Open and laparoscopic energy-based surgery workflows"
+      },
+      {
+        labelZh: "公开展示重点",
+        labelEn: "Public messaging focus",
+        ourValueZh: "主机、换能器与刀头配套展示",
+        ourValueEn: "Integrated presentation of host unit, transducer, and handpiece ecosystem",
+        benchmarkValueZh: "平台化能量系统表达",
+        benchmarkValueEn: "Platform-led energy system positioning"
+      },
+      {
+        labelZh: "官网呈现方式",
+        labelEn: "Official presentation style",
+        ourValueZh: "设备图、型号与适配关系公开",
+        ourValueEn: "Product imagery, model naming, and compatibility are publicly presented",
+        benchmarkValueZh: "系统级官方产品呈现",
+        benchmarkValueEn: "System-level official product presentation"
+      }
+    ]
+  },
+  "surgical-staplers": {
+    benchmarkLabelZh: "ETHICON ECHELON",
+    benchmarkLabelEn: "ETHICON ECHELON",
+    brand: "ETHICON",
+    model: "ECHELON",
+    publicSummaryZh:
+      "按腔镜切割吻合器的公开表达整理，用于建立国产切割吻合器与国际主流产品线之间的公开样板对比。",
+    publicSummaryEn:
+      "Organized around public positioning for endoscopic stapling systems so the detail page can compare domestic staplers with a mainstream global product line.",
+    comparisonRows: [
+      {
+        labelZh: "公开对标平台",
+        labelEn: "Benchmark platform",
+        ourValueZh: "国产腔镜切割吻合器公开样板",
+        ourValueEn: "Domestic public-facing endoscopic stapler sample",
+        benchmarkValueZh: "ETHICON ECHELON",
+        benchmarkValueEn: "ETHICON ECHELON"
+      },
+      {
+        labelZh: "产品定位",
+        labelEn: "Product positioning",
+        ourValueZh: "一次性电动切割吻合器及钉仓组件",
+        ourValueEn: "Disposable powered cutter stapler and reload components",
+        benchmarkValueZh: "国际主流电动吻合器平台",
+        benchmarkValueEn: "Mainstream international powered stapling platform"
+      },
+      {
+        labelZh: "应用场景",
+        labelEn: "Primary application",
+        ourValueZh: "腔镜下组织离断、切除与缝合",
+        ourValueEn: "Laparoscopic tissue transection, resection, and closure",
+        benchmarkValueZh: "多学科腔镜缝合切割流程",
+        benchmarkValueEn: "Multi-specialty laparoscopic stapling workflows"
+      },
+      {
+        labelZh: "公开展示重点",
+        labelEn: "Public messaging focus",
+        ourValueZh: "击发手柄、关节头与钉仓适配",
+        ourValueEn: "Handle control, articulation head, and reload compatibility",
+        benchmarkValueZh: "平台化吻合器操作体验",
+        benchmarkValueEn: "Platform-focused stapler workflow experience"
+      },
+      {
+        labelZh: "官网呈现方式",
+        labelEn: "Official presentation style",
+        ourValueZh: "真机图配合型号和组件关系",
+        ourValueEn: "Real-device imagery paired with model naming and component relationships",
+        benchmarkValueZh: "系统化官方产品呈现",
+        benchmarkValueEn: "Structured official product presentation"
+      }
+    ]
+  },
+  "endoscopy-imaging-systems": {
+    benchmarkLabelZh: "Stryker 1688 AIM 4K Platform",
+    benchmarkLabelEn: "Stryker 1688 AIM 4K Platform",
+    brand: "Stryker",
+    model: "1688 AIM 4K Platform",
+    publicSummaryZh:
+      "按 4K/荧光内窥镜成像系统的公开表达整理，用于搭建国产成像平台与国际主流 4K 荧光平台之间的公开比较结构。",
+    publicSummaryEn:
+      "Structured around public positioning for 4K and fluorescence endoscopy platforms so domestic systems can be compared with a mainstream international imaging benchmark.",
+    comparisonRows: [
+      {
+        labelZh: "公开对标平台",
+        labelEn: "Benchmark platform",
+        ourValueZh: "国产 4K / 荧光内窥镜成像样板",
+        ourValueEn: "Domestic 4K / fluorescence endoscopy sample",
+        benchmarkValueZh: "Stryker 1688 AIM 4K Platform",
+        benchmarkValueEn: "Stryker 1688 AIM 4K Platform"
+      },
+      {
+        labelZh: "产品定位",
+        labelEn: "Product positioning",
+        ourValueZh: "4K、3D 或荧光内窥镜成像系统",
+        ourValueEn: "4K, 3D, or fluorescence endoscopic imaging system",
+        benchmarkValueZh: "国际主流 4K 荧光成像平台",
+        benchmarkValueEn: "Mainstream international 4K fluorescence imaging platform"
+      },
+      {
+        labelZh: "应用场景",
+        labelEn: "Primary application",
+        ourValueZh: "腔镜手术成像与荧光辅助观察",
+        ourValueEn: "Laparoscopic imaging and fluorescence-assisted visualization",
+        benchmarkValueZh: "多专科腔镜成像工作流",
+        benchmarkValueEn: "Multi-specialty endoscopic imaging workflows"
+      },
+      {
+        labelZh: "公开展示重点",
+        labelEn: "Public messaging focus",
+        ourValueZh: "主机、摄像头、光源与显示链路",
+        ourValueEn: "Processor, camera head, light source, and display chain",
+        benchmarkValueZh: "4K + 荧光平台化表达",
+        benchmarkValueEn: "Platform-based 4K plus fluorescence positioning"
+      },
+      {
+        labelZh: "官网呈现方式",
+        labelEn: "Official presentation style",
+        ourValueZh: "整机图配合系统级命名",
+        ourValueEn: "Complete-system visuals paired with system-level naming",
+        benchmarkValueZh: "平台化官方系统展示",
+        benchmarkValueEn: "Platform-led official system presentation"
+      }
+    ]
+  },
+  "surgical-microscopes": {
+    benchmarkLabelZh: "ZEISS KINEVO 900",
+    benchmarkLabelEn: "ZEISS KINEVO 900",
+    brand: "ZEISS",
+    model: "KINEVO 900",
+    publicSummaryZh:
+      "按手术显微镜公开定位整理，用于在显微外科设备详情页中形成稳定、专业的国际对比样板。",
+    publicSummaryEn:
+      "Organized around public positioning for surgical microscopes to create a stable and professional comparison frame against a mainstream global platform.",
+    comparisonRows: [
+      {
+        labelZh: "公开对标平台",
+        labelEn: "Benchmark platform",
+        ourValueZh: "国产手术显微镜公开样板",
+        ourValueEn: "Domestic public-facing surgical microscope sample",
+        benchmarkValueZh: "ZEISS KINEVO 900",
+        benchmarkValueEn: "ZEISS KINEVO 900"
+      },
+      {
+        labelZh: "产品定位",
+        labelEn: "Product positioning",
+        ourValueZh: "显微外科手术观察与成像放大",
+        ourValueEn: "Microsurgical visualization and magnified operative imaging",
+        benchmarkValueZh: "高端显微外科手术显微镜平台",
+        benchmarkValueEn: "Premium microsurgical operating microscope platform"
+      },
+      {
+        labelZh: "应用场景",
+        labelEn: "Primary application",
+        ourValueZh: "显微外科、神经外科与五官科",
+        ourValueEn: "Microsurgery, neurosurgery, and ENT workflows",
+        benchmarkValueZh: "高精度显微外科流程",
+        benchmarkValueEn: "High-precision microsurgical workflows"
+      },
+      {
+        labelZh: "公开展示重点",
+        labelEn: "Public messaging focus",
+        ourValueZh: "光学成像、放大倍率与人机操作",
+        ourValueEn: "Optics, magnification, and user-control workflow",
+        benchmarkValueZh: "数字增强与显微工作流协同",
+        benchmarkValueEn: "Digitally enhanced microscope workflow integration"
+      },
+      {
+        labelZh: "官网呈现方式",
+        labelEn: "Official presentation style",
+        ourValueZh: "真机大图与参数说明并列呈现",
+        ourValueEn: "Large real-device imagery presented alongside specification highlights",
+        benchmarkValueZh: "旗舰级系统化官网展示",
+        benchmarkValueEn: "Flagship system-style official presentation"
+      }
+    ]
+  },
+  "ophthalmic-phaco-systems": {
+    benchmarkLabelZh: "Alcon Centurion Vision System",
+    benchmarkLabelEn: "Alcon Centurion Vision System",
+    brand: "Alcon",
+    model: "Centurion Vision System",
+    publicSummaryZh:
+      "按眼科超乳系统的公开定位整理，用于在白内障手术设备详情页中建立清晰、专业的国际参考框架。",
+    publicSummaryEn:
+      "Structured around public positioning for ophthalmic phaco systems to provide a clear international reference frame for cataract-surgery equipment detail pages.",
+    comparisonRows: [
+      {
+        labelZh: "公开对标平台",
+        labelEn: "Benchmark platform",
+        ourValueZh: "国产眼科超乳系统公开样板",
+        ourValueEn: "Domestic public-facing ophthalmic phaco sample",
+        benchmarkValueZh: "Alcon Centurion Vision System",
+        benchmarkValueEn: "Alcon Centurion Vision System"
+      },
+      {
+        labelZh: "产品定位",
+        labelEn: "Product positioning",
+        ourValueZh: "白内障超声乳化手术系统",
+        ourValueEn: "Ophthalmic phacoemulsification surgical system",
+        benchmarkValueZh: "国际主流白内障手术平台",
+        benchmarkValueEn: "Mainstream international cataract surgery platform"
+      },
+      {
+        labelZh: "应用场景",
+        labelEn: "Primary application",
+        ourValueZh: "白内障与前节手术场景",
+        ourValueEn: "Cataract and anterior-segment surgery workflows",
+        benchmarkValueZh: "成熟白内障手术工作流",
+        benchmarkValueEn: "Established cataract surgery workflows"
+      },
+      {
+        labelZh: "公开展示重点",
+        labelEn: "Public messaging focus",
+        ourValueZh: "主机、脚踏与手柄配套展示",
+        ourValueEn: "Console, footswitch, and handpiece presentation",
+        benchmarkValueZh: "流体控制与超乳平台表达",
+        benchmarkValueEn: "Fluidics and phaco platform positioning"
+      },
+      {
+        labelZh: "官网呈现方式",
+        labelEn: "Official presentation style",
+        ourValueZh: "整机图配合临床适用描述",
+        ourValueEn: "System imagery paired with clinical-use messaging",
+        benchmarkValueZh: "旗舰眼科系统官网展示",
+        benchmarkValueEn: "Flagship ophthalmic system presentation"
+      }
+    ]
+  },
+  "ultrasound-diagnostic-systems": {
+    benchmarkLabelZh: "Philips EPIQ Elite",
+    benchmarkLabelEn: "Philips EPIQ Elite",
+    brand: "Philips",
+    model: "EPIQ Elite",
+    publicSummaryZh:
+      "按通用彩超平台的公开定位整理，用于在超声诊断产品详情页中形成一致的国际参考结构。",
+    publicSummaryEn:
+      "Organized around public positioning for premium general-imaging ultrasound platforms to create a consistent international reference structure.",
+    comparisonRows: [
+      {
+        labelZh: "公开对标平台",
+        labelEn: "Benchmark platform",
+        ourValueZh: "国产彩色多普勒超声公开样板",
+        ourValueEn: "Domestic public-facing color Doppler ultrasound sample",
+        benchmarkValueZh: "Philips EPIQ Elite",
+        benchmarkValueEn: "Philips EPIQ Elite"
+      },
+      {
+        labelZh: "产品定位",
+        labelEn: "Product positioning",
+        ourValueZh: "通用与高端全身彩超平台",
+        ourValueEn: "General imaging and premium whole-body ultrasound platform",
+        benchmarkValueZh: "国际主流高端超声平台",
+        benchmarkValueEn: "Mainstream international premium ultrasound platform"
+      },
+      {
+        labelZh: "应用场景",
+        labelEn: "Primary application",
+        ourValueZh: "腹部、浅表、妇产及综合超声检查",
+        ourValueEn: "Abdominal, small-parts, OB/GYN, and general ultrasound exams",
+        benchmarkValueZh: "综合临床超声诊断流程",
+        benchmarkValueEn: "Comprehensive clinical ultrasound workflows"
+      },
+      {
+        labelZh: "公开展示重点",
+        labelEn: "Public messaging focus",
+        ourValueZh: "主机、探头生态与影像算法",
+        ourValueEn: "Console, probe ecosystem, and imaging algorithms",
+        benchmarkValueZh: "平台级成像与工作流表达",
+        benchmarkValueEn: "Platform-level imaging and workflow positioning"
+      },
+      {
+        labelZh: "官网呈现方式",
+        labelEn: "Official presentation style",
+        ourValueZh: "真机图与临床方向组合展示",
+        ourValueEn: "Real-device imagery combined with clinical-use directions",
+        benchmarkValueZh: "高端系统级官网展示",
+        benchmarkValueEn: "Premium system-level official presentation"
+      }
+    ]
+  },
+  "surgical-robotics": {
+    benchmarkLabelZh: "da Vinci Xi",
+    benchmarkLabelEn: "da Vinci Xi",
+    brand: "Intuitive",
+    model: "da Vinci Xi",
+    publicSummaryZh:
+      "按手术机器人公开定位整理，用于在国产机器人平台详情页中建立统一的国际主流参考结构。",
+    publicSummaryEn:
+      "Structured around public positioning for surgical robotics so domestic robotic platforms can be presented against a mainstream international benchmark.",
+    comparisonRows: [
+      {
+        labelZh: "公开对标平台",
+        labelEn: "Benchmark platform",
+        ourValueZh: "国产手术机器人公开样板",
+        ourValueEn: "Domestic public-facing surgical robotics sample",
+        benchmarkValueZh: "da Vinci Xi",
+        benchmarkValueEn: "da Vinci Xi"
+      },
+      {
+        labelZh: "产品定位",
+        labelEn: "Product positioning",
+        ourValueZh: "腔镜、骨科或介入机器人平台",
+        ourValueEn: "Robotic platform for laparoscopy, orthopedics, or intervention",
+        benchmarkValueZh: "国际主流机器人手术平台",
+        benchmarkValueEn: "Mainstream international robotic surgery platform"
+      },
+      {
+        labelZh: "应用场景",
+        labelEn: "Primary application",
+        ourValueZh: "复杂微创手术与导航辅助流程",
+        ourValueEn: "Complex minimally invasive surgery and navigation-assisted workflows",
+        benchmarkValueZh: "复杂微创机器人手术流程",
+        benchmarkValueEn: "Complex minimally invasive robotic surgery workflows"
+      },
+      {
+        labelZh: "公开展示重点",
+        labelEn: "Public messaging focus",
+        ourValueZh: "机器人本体、控制台与导航协同",
+        ourValueEn: "Robot body, console, and navigation integration",
+        benchmarkValueZh: "平台级机器人工作流表达",
+        benchmarkValueEn: "Platform-focused robotic workflow positioning"
+      },
+      {
+        labelZh: "官网呈现方式",
+        labelEn: "Official presentation style",
+        ourValueZh: "整机图、系统命名与临床场景组合展示",
+        ourValueEn: "System imagery, model naming, and clinical-scene messaging presented together",
+        benchmarkValueZh: "旗舰机器人官网展示",
+        benchmarkValueEn: "Flagship robotic system presentation"
+      }
+    ]
+  },
+  "neurosurgical-navigation-systems": {
+    benchmarkLabelZh: "Medtronic StealthStation S8",
+    benchmarkLabelEn: "Medtronic StealthStation S8",
+    brand: "Medtronic",
+    model: "StealthStation S8",
+    publicSummaryZh:
+      "按神经外科导航平台的公开定位整理，用于在国产导航设备详情页中建立稳定、专业的国际参考结构。",
+    publicSummaryEn:
+      "Organized around public positioning for neurosurgical navigation platforms to create a stable and professional international reference structure.",
+    comparisonRows: [
+      {
+        labelZh: "公开对标平台",
+        labelEn: "Benchmark platform",
+        ourValueZh: "国产神经外科导航公开样板",
+        ourValueEn: "Domestic public-facing neurosurgical navigation sample",
+        benchmarkValueZh: "Medtronic StealthStation S8",
+        benchmarkValueEn: "Medtronic StealthStation S8"
+      },
+      {
+        labelZh: "产品定位",
+        labelEn: "Product positioning",
+        ourValueZh: "神经外科导航与多模态影像引导平台",
+        ourValueEn: "Neurosurgical navigation and multimodal image-guidance platform",
+        benchmarkValueZh: "国际主流神经导航平台",
+        benchmarkValueEn: "Mainstream international neurosurgical navigation platform"
+      },
+      {
+        labelZh: "应用场景",
+        labelEn: "Primary application",
+        ourValueZh: "神经外科定位、规划与术中引导",
+        ourValueEn: "Neurosurgical localization, planning, and intraoperative guidance",
+        benchmarkValueZh: "复杂神经外科导航流程",
+        benchmarkValueEn: "Complex neurosurgical navigation workflows"
+      },
+      {
+        labelZh: "公开展示重点",
+        labelEn: "Public messaging focus",
+        ourValueZh: "导航主机、显示与多模态影像融合",
+        ourValueEn: "Navigation console, displays, and multimodal image fusion",
+        benchmarkValueZh: "平台级导航工作流表达",
+        benchmarkValueEn: "Platform-level navigation workflow positioning"
+      },
+      {
+        labelZh: "官网呈现方式",
+        labelEn: "Official presentation style",
+        ourValueZh: "设备图、工作站与导航应用展示",
+        ourValueEn: "Device visuals combined with workstation and navigation-use presentation",
+        benchmarkValueZh: "系统级神经导航官网展示",
+        benchmarkValueEn: "System-level neurosurgical navigation presentation"
+      }
+    ]
+  }
+};
+
+const showcaseBenchmarkBySlug: Record<string, ProductBenchmarkShowcase> = {
+  "umr-790": {
+    eyebrowZh: "国际同级对比",
+    eyebrowEn: "Benchmark Perspective",
+    titleZh: "uMR 790 与 MAGNETOM Vida 公开规格对比",
+    titleEn: "uMR 790 and MAGNETOM Vida public specification comparison",
+    ourLabelZh: "uMR 790",
+    ourLabelEn: "uMR 790",
+    benchmarkLabelZh: "MAGNETOM Vida",
+    benchmarkLabelEn: "MAGNETOM Vida",
+    publicSummaryZh:
+      "本节仅整理双方官网可直接核对的公开参数与功能表述，用于呈现高端 3.0T MRI 平台在公开规格层面的客观比较。",
+    publicSummaryEn:
+      "This section consolidates only directly verifiable public specifications and feature statements from the official materials of both premium 3.0T MRI platforms.",
+    comparisonRows: [
+      { labelZh: "对标平台", labelEn: "Benchmark platform", ourValueZh: "uMR 790", ourValueEn: "uMR 790", benchmarkValueZh: "MAGNETOM Vida", benchmarkValueEn: "MAGNETOM Vida" },
+      { labelZh: "磁场强度", labelEn: "Field strength", ourValueZh: "3.0T", ourValueEn: "3.0T", benchmarkValueZh: "3.0T", benchmarkValueEn: "3.0T" },
+      { labelZh: "最大梯度场强", labelEn: "Maximum gradient strength", ourValueZh: "100 mT/m", ourValueEn: "100 mT/m", benchmarkValueZh: "60 mT/m", benchmarkValueEn: "60 mT/m" },
+      { labelZh: "最大梯度切换率", labelEn: "Maximum slew rate", ourValueZh: "200 T/m/s", ourValueEn: "200 T/m/s", benchmarkValueZh: "200 T/m/s", benchmarkValueEn: "200 T/m/s" },
+      { labelZh: "平台定位", labelEn: "Platform positioning", ourValueZh: "科研型与高阶临床 3.0T MRI", ourValueEn: "Research-oriented and advanced clinical 3.0T MRI", benchmarkValueZh: "高端 3.0T 临床 MRI 平台", benchmarkValueEn: "Premium clinical 3.0T MRI platform" },
+      { labelZh: "公开卖点", labelEn: "Public feature emphasis", ourValueZh: "ultra-high homogeneity 与 exceptional gradient performance", ourValueEn: "Ultra-high homogeneity and exceptional gradient performance", benchmarkValueZh: "高端临床成像平台能力", benchmarkValueEn: "High-end clinical imaging platform capability" }
+    ],
+    internalReference: {
+      brand: "Siemens Healthineers",
+      model: "MAGNETOM Vida",
+      reasonZh: "按 3.0T 高端 MRI 平台的公开对标方向整理，用于在详情页中形成统一、可读的国际比较结构。",
+      reasonEn: "Structured around the public benchmark direction for premium 3.0T MRI platforms so the detail page can present a consistent international comparison.",
+      sourceLinks: [
+        "https://www.siemens-healthineers.com/magnetic-resonance-imaging/3t-mri-scanner/magnetom-vida",
+        "https://global.united-imaging.com/en/product/mr/uMR-790"
+      ]
+    }
+  },
+  "umr-780": {
+    eyebrowZh: "国际同级对比",
+    eyebrowEn: "Benchmark Perspective",
+    titleZh: "uMR 780 与 MAGNETOM Vida 公开规格对比",
+    titleEn: "uMR 780 and MAGNETOM Vida public specification comparison",
+    ourLabelZh: "uMR 780",
+    ourLabelEn: "uMR 780",
+    benchmarkLabelZh: "MAGNETOM Vida",
+    benchmarkLabelEn: "MAGNETOM Vida",
+    publicSummaryZh:
+      "本节整理官网可直接核对的 3.0T MRI 公开信息，用于作为产品页中的国际参考样板。",
+    publicSummaryEn:
+      "This section gathers directly verifiable 3.0T MRI information from official sources as an international reference layer for the product page.",
+    comparisonRows: [
+      { labelZh: "对标平台", labelEn: "Benchmark platform", ourValueZh: "uMR 780", ourValueEn: "uMR 780", benchmarkValueZh: "MAGNETOM Vida", benchmarkValueEn: "MAGNETOM Vida" },
+      { labelZh: "磁场强度", labelEn: "Field strength", ourValueZh: "3.0T", ourValueEn: "3.0T", benchmarkValueZh: "3.0T", benchmarkValueEn: "3.0T" },
+      { labelZh: "平台定位", labelEn: "Platform positioning", ourValueZh: "ACS 3.0T 磁共振系统", ourValueEn: "ACS 3.0T MR system", benchmarkValueZh: "高端 3.0T 临床 MRI 平台", benchmarkValueEn: "Premium clinical 3.0T MRI platform" },
+      { labelZh: "公开卖点", labelEn: "Public feature emphasis", ourValueZh: "ACS 成像平台与高质量图像表现", ourValueEn: "ACS imaging platform and high-quality image performance", benchmarkValueZh: "高端临床成像平台能力", benchmarkValueEn: "High-end clinical imaging platform capability" },
+      { labelZh: "官网呈现方式", labelEn: "Official presentation style", ourValueZh: "真机图与系统级命名公开", ourValueEn: "System imagery and platform naming are publicly presented", benchmarkValueZh: "系统级旗舰官网展示", benchmarkValueEn: "Flagship system-level presentation" }
+    ],
+    internalReference: {
+      brand: "Siemens Healthineers",
+      model: "MAGNETOM Vida",
+      reasonZh: "按 3.0T MRI 平台的公开对标方向整理，便于统一产品详情页的国际比较框架。",
+      reasonEn: "Structured around public 3.0T MRI benchmark direction for a consistent international comparison frame.",
+      sourceLinks: [
+        "https://www.siemens-healthineers.com/magnetic-resonance-imaging/3t-mri-scanner/magnetom-vida",
+        "https://global.united-imaging.com/en"
+      ]
+    }
+  },
+  "umr-680": {
+    eyebrowZh: "国际同级对比",
+    eyebrowEn: "Benchmark Perspective",
+    titleZh: "uMR 680 与 Philips MR 5300 公开规格对比",
+    titleEn: "uMR 680 and Philips MR 5300 public specification comparison",
+    ourLabelZh: "uMR 680",
+    ourLabelEn: "uMR 680",
+    benchmarkLabelZh: "Philips MR 5300",
+    benchmarkLabelEn: "Philips MR 5300",
+    publicSummaryZh:
+      "本节仅整理双方官网可直接核对的公开参数与产品表达，用于作为 1.5T 临床 MRI 平台的客观参考。",
+    publicSummaryEn:
+      "This section includes only directly verifiable public specifications and platform messaging from both official sources, serving as an objective reference for 1.5T clinical MRI platforms.",
+    comparisonRows: [
+      { labelZh: "对标平台", labelEn: "Benchmark platform", ourValueZh: "uMR 680", ourValueEn: "uMR 680", benchmarkValueZh: "Philips MR 5300", benchmarkValueEn: "Philips MR 5300" },
+      { labelZh: "磁场强度", labelEn: "Field strength", ourValueZh: "1.5T", ourValueEn: "1.5T", benchmarkValueZh: "1.5T", benchmarkValueEn: "1.5T" },
+      { labelZh: "最大梯度场强", labelEn: "Maximum gradient strength", ourValueZh: "45 mT/m", ourValueEn: "45 mT/m", benchmarkValueZh: "33 mT/m", benchmarkValueEn: "33 mT/m" },
+      { labelZh: "最大梯度切换率", labelEn: "Maximum slew rate", ourValueZh: "200 T/m/s", ourValueEn: "200 T/m/s", benchmarkValueZh: "120 T/m/s", benchmarkValueEn: "120 T/m/s" },
+      { labelZh: "磁体均匀度", labelEn: "Magnet homogeneity", ourValueZh: "0.033 ppm @ 30 cm DSV（Typical）", ourValueEn: "0.033 ppm @ 30 cm DSV (Typical)", benchmarkValueZh: "高均匀度临床平台", benchmarkValueEn: "High-homogeneity clinical platform" },
+      { labelZh: "接收通道", labelEn: "Receiver channels", ourValueZh: "最高 96 独立接收通道", ourValueEn: "Up to 96 independent receiver channels", benchmarkValueZh: "dStream 临床平台架构", benchmarkValueEn: "dStream clinical platform architecture" },
+      { labelZh: "平台定位", labelEn: "Platform positioning", ourValueZh: "uAIFI Empowered 1.5T MR", ourValueEn: "uAIFI Empowered 1.5T MR", benchmarkValueZh: "BlueSeal 1.5T 临床平台", benchmarkValueEn: "BlueSeal 1.5T clinical MRI platform" },
+      { labelZh: "患者体验", labelEn: "Patient workflow orientation", ourValueZh: "宽孔径体验与日常临床覆盖", ourValueEn: "Wide-bore experience and routine clinical coverage", benchmarkValueZh: "面向临床效率与可持续运行", benchmarkValueEn: "Designed for clinical efficiency and sustainable operation" }
+    ],
+    internalReference: {
+      brand: "Philips",
+      model: "MR 5300",
+      reasonZh: "按 1.5T 主流临床 MRI 平台的公开对标方向整理，用于在详情页中形成统一、可读的国际比较结构。",
+      reasonEn: "Structured around the public benchmark direction for mainstream 1.5T clinical MRI platforms so the detail page can present a consistent and readable international comparison.",
+      sourceLinks: [
+        "https://global.united-imaging.com/en",
+        "https://www.usa.philips.com/healthcare/product/HC781342/mr-5300-1-5t-mr-system",
+        "https://www.philips.com/a-w/about/news/archive/standard/news/press/2021/20211201-philips-expands-mr-portfolio-with-new-mr-5300-system.html"
+      ]
+    }
+  },
+  "neumr-rena": {
+    eyebrowZh: "国际同级对比",
+    eyebrowEn: "Benchmark Perspective",
+    titleZh: "NeuMR Rena 与 Philips MR 5300 公开规格对比",
+    titleEn: "NeuMR Rena and Philips MR 5300 public specification comparison",
+    ourLabelZh: "NeuMR Rena",
+    ourLabelEn: "NeuMR Rena",
+    benchmarkLabelZh: "Philips MR 5300",
+    benchmarkLabelEn: "Philips MR 5300",
+    publicSummaryZh:
+      "本节按双方公开资料中的可核对参数与平台表达整理，用于形成 1.5T MRI 平台的清晰国际参考样板。",
+    publicSummaryEn:
+      "This section is structured from directly verifiable public specifications and platform messaging from both sources to create a clear international 1.5T MRI reference frame.",
+    comparisonRows: [
+      { labelZh: "对标平台", labelEn: "Benchmark platform", ourValueZh: "NeuMR Rena", ourValueEn: "NeuMR Rena", benchmarkValueZh: "Philips MR 5300", benchmarkValueEn: "Philips MR 5300" },
+      { labelZh: "磁场强度", labelEn: "Field strength", ourValueZh: "1.5T", ourValueEn: "1.5T", benchmarkValueZh: "1.5T", benchmarkValueEn: "1.5T" },
+      { labelZh: "最大梯度场强", labelEn: "Maximum gradient strength", ourValueZh: "46 mT/m", ourValueEn: "46 mT/m", benchmarkValueZh: "33 mT/m", benchmarkValueEn: "33 mT/m" },
+      { labelZh: "最大梯度切换率", labelEn: "Maximum slew rate", ourValueZh: "160 T/m/s", ourValueEn: "160 T/m/s", benchmarkValueZh: "120 T/m/s", benchmarkValueEn: "120 T/m/s" },
+      { labelZh: "平台架构", labelEn: "Platform architecture", ourValueZh: "Full digital 架构", ourValueEn: "Full digital architecture", benchmarkValueZh: "dStream 临床平台架构", benchmarkValueEn: "dStream clinical platform architecture" },
+      { labelZh: "公开卖点", labelEn: "Public feature emphasis", ourValueZh: "Boundless platform 与 Deep R", ourValueEn: "Boundless platform and Deep R", benchmarkValueZh: "BlueSeal 与临床效率平台", benchmarkValueEn: "BlueSeal and a clinically efficient platform" }
+    ],
+    internalReference: {
+      brand: "Philips",
+      model: "MR 5300",
+      reasonZh: "按 1.5T MRI 平台的公开对标方向整理，用于统一详情页中的国际比较层次。",
+      reasonEn: "Structured around the public benchmark direction for 1.5T MRI platforms so the detail page can maintain a consistent international comparison layer.",
+      sourceLinks: [
+        "https://www.neusoftmedical.com/",
+        "https://www.usa.philips.com/healthcare/product/HC781342/mr-5300-1-5t-mr-system"
+      ]
+    }
+  }
+};
+
+const showcaseFallbackProducts: Record<string, ProductRecord> = {
+  "umr-680": {
+    id: "showcase-umr-680",
+    categoryId: "showcase-mr",
+    slug: "umr-680",
+    manufacturerZh: "联影",
+    manufacturerEn: "United Imaging",
+    model: "uMR 680",
+    nameZh: "uMR 680",
+    nameEn: "uMR 680",
+    summaryZh: "联影 1.5T 磁共振系统公开样板页。",
+    summaryEn: "Public-facing showcase page for the United Imaging 1.5T MR system.",
+    applicationZh: "面向常规临床 MRI 检查流程。",
+    applicationEn: "Designed for routine clinical MRI workflows.",
+    specificationsZh: "公开资料强调梯度性能、高密度射频通道与图像质量表现。",
+    specificationsEn: "Public materials emphasize gradient performance, high-density RF channels, and image quality.",
+    packagingZh: "基于公开官方资料整理。",
+    packagingEn: "Compiled from public official materials.",
+    imageUrl: "https://global.united-imaging.com/-/media/uih/product/mr/mr-products-with-title/680.png?h=530&w=700&hash=26151AD06D221CFA2F7727C99FECF43D",
+    featured: 0,
+    seoTitleZh: "uMR 680",
+    seoTitleEn: "uMR 680",
+    seoDescriptionZh: "联影 1.5T 磁共振系统公开样板页。",
+    seoDescriptionEn: "Public-facing showcase page for the United Imaging 1.5T MR system.",
+    categorySlug: "mr-systems",
+    categoryNameZh: "磁共振系统",
+    categoryNameEn: "MR Systems"
+  }
+};
+
+function getSourceLinks(product: ProductRecord) {
+  const sourceValue = String((product as Record<string, unknown>).sourceUrl || "").trim();
+  return sourceValue
+    .split(/[\n\r]+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function buildGenericBenchmark(product: ProductRecord): ProductBenchmarkShowcase | null {
+  const categorySlug = String(product.categorySlug || "");
+  const template = categoryBenchmarkTemplates[categorySlug];
+
+  if (!template) {
+    return null;
+  }
+
+  const ourLabelEn = String(product.nameEn || product.model || "");
+  const ourLabelZh = String(product.nameZh || product.model || "");
+  const sourceLinks = getSourceLinks(product);
+
+  return {
+    eyebrowZh: "国际参考对比",
+    eyebrowEn: "Benchmark Perspective",
+    titleZh: `${ourLabelZh} 公开资料对比`,
+    titleEn: `${ourLabelEn} public benchmark snapshot`,
+    ourLabelZh,
+    ourLabelEn,
+    benchmarkLabelZh: template.benchmarkLabelZh,
+    benchmarkLabelEn: template.benchmarkLabelEn,
+    publicSummaryZh: template.publicSummaryZh,
+    publicSummaryEn: template.publicSummaryEn,
+    comparisonRows: template.comparisonRows,
+    internalReference: {
+      brand: template.brand,
+      model: template.model,
+      reasonZh: "按所属产品品类的国际主流公开对标方向整理，用于在详情页中形成统一、可读的比较结构。",
+      reasonEn: "Structured around the mainstream public benchmark direction for this product category so the detail page can present a consistent and readable comparison.",
+      sourceLinks
+    }
+  };
+}
+
 export function getProductShowcase(slug: string) {
-  return showcaseBySlug[slug] ?? null;
+  const showcase = showcaseBySlug[slug];
+
+  if (!showcase) {
+    return null;
+  }
+
+  const benchmark = showcaseBenchmarkBySlug[slug];
+  return benchmark ? { ...showcase, benchmark } : showcase;
 }
 
 export function getFallbackGallery(product: ProductRecord) {
   const imageUrl = String(product.imageUrl || "").trim();
   return imageUrl ? [imageUrl] : [];
+}
+
+export function getCatalogBenchmark(slug: string): ProductBenchmarkShowcase | null {
+  const showcaseBenchmark = showcaseBenchmarkBySlug[slug];
+
+  if (showcaseBenchmark) {
+    return showcaseBenchmark;
+  }
+
+  const product = realProducts.find((entry) => entry.slug === slug);
+  return product ? buildGenericBenchmark(product as unknown as ProductRecord) : null;
+}
+
+export function getShowcaseFallbackProduct(slug: string) {
+  return showcaseFallbackProducts[slug] ?? null;
 }

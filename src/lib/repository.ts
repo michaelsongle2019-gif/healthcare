@@ -1,5 +1,6 @@
 import type Database from "better-sqlite3";
 import { getDatabase } from "@/lib/db";
+import { hashPassword } from "@/lib/auth";
 import type {
   CategoryInput,
   DocumentInput,
@@ -510,6 +511,23 @@ export function listInquiries(database?: Database.Database): InquiryRecord[] {
   return useDb(database)
     .prepare("SELECT * FROM inquiries ORDER BY created_at DESC")
     .all() as InquiryRecord[];
+}
+
+export async function updateAdminPassword(
+  username: string,
+  password: string,
+  database?: Database.Database
+) {
+  const db = useDb(database);
+  const passwordHash = await hashPassword(password);
+
+  db.prepare(
+    `
+      UPDATE admins
+      SET password_hash = ?
+      WHERE username = ?
+    `
+  ).run(passwordHash, username);
 }
 
 export function getSiteSettings(database?: Database.Database) {

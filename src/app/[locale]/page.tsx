@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ProductVisual } from "@/components/product-visual";
 import {
   getCatalogCardSummary,
+  getHomepageHeroSummary,
   getLocalizedValue,
   truncateDisplayText
 } from "@/lib/content";
@@ -62,7 +63,7 @@ export default async function LocaleHomePage({
                   <p className="hero-copy">
                     {
                       truncateDisplayText(
-                        getCatalogCardSummary(locale, {
+                        getHomepageHeroSummary(locale, {
                           applicationZh: String(product.applicationZh),
                           applicationEn: String(product.applicationEn),
                           specificationsZh: String(product.specificationsZh),
@@ -70,7 +71,7 @@ export default async function LocaleHomePage({
                           summaryZh: String(product.summaryZh),
                           summaryEn: String(product.summaryEn)
                         }),
-                        110
+                        140
                       ).text
                     }
                   </p>
@@ -155,15 +156,15 @@ export default async function LocaleHomePage({
                     )}
                   </Link>
                 </h3>
-                <p className="card-copy">
-                  {intro.text}{" "}
+                <div className="product-card-copy">
+                  <p className="card-copy card-copy-text">{intro.text}</p>
                   <Link
                     href={`/${locale}/products/${String(product.slug)}`}
                     className="more-link"
                   >
                     {locale === "zh" ? "更多" : "Learn more"}
                   </Link>
-                </p>
+                </div>
               </article>
             );
           })}

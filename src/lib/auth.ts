@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { createHmac, timingSafeEqual } from "node:crypto";
+import type Database from "better-sqlite3";
 
 export type SessionUser = {
   username: string;
@@ -33,6 +34,53 @@ export function getDefaultAdminCredentials() {
     password: DEFAULT_ADMIN_PASSWORD,
     displayName: DEFAULT_ADMIN_DISPLAY_NAME,
     passwordHash: bcrypt.hashSync(DEFAULT_ADMIN_PASSWORD, 10)
+  };
+}
+
+export async function authenticateAdminCredentials(
+  username: string,
+  password: string,
+  database?: Database.Database
+) {
+  const fallback = getDefaultAdminCredentials();
+
+  if (!database) {
+    if (
+      username === fallback.username &&
+      (await verifyPassword(password, fallback.passwordHash))
+    ) {
+      return {
+        username: fallback.username,
+        displayName: fallback.displayName
+      };
+    }
+
+    return null;
+  }
+
+  const admin = database
+    .prepare(
+      `
+        SELECT username, password_hash, display_name
+        FROM admins
+        WHERE username = ?
+      `
+    )
+    .get(username) as
+    | { username: string; password_hash: string; display_name: string }
+    | undefined;
+
+  if (!admin) {
+    return null;
+  }
+
+  if (!(await verifyPassword(password, admin.password_hash))) {
+    return null;
+  }
+
+  return {
+    username: admin.username,
+    displayName: admin.display_name
   };
 }
 
