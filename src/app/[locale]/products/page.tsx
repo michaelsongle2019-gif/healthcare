@@ -1,26 +1,41 @@
 import Link from "next/link";
 import { ProductVisual } from "@/components/product-visual";
 import {
+  buildVisibleCatalogStructure,
+  getCategoryDisplayNames
+} from "@/lib/catalog-taxonomy";
+import {
   getCatalogCardSummary,
   getLocalizedValue,
   truncateDisplayText
 } from "@/lib/content";
 import { copy, ensureLocale } from "@/lib/locales";
-import { listCategories, listProducts } from "@/lib/repository";
+import { listProducts } from "@/lib/repository";
 
 export default async function ProductsPage({
   params,
   searchParams
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ category?: string; q?: string }>;
+  searchParams: Promise<{ topCategory?: string; category?: string; q?: string }>;
 }) {
   const { locale: rawLocale } = await params;
   const locale = ensureLocale(rawLocale);
   const dictionary = copy[locale];
   const filters = await searchParams;
-  const categories = listCategories();
-  const products = listProducts().filter((product) => {
+  const allProducts = listProducts();
+  const visibleStructure = buildVisibleCatalogStructure(allProducts);
+  const derivedTopCategory = filters.category
+    ? getCategoryDisplayNames(filters.category).topLevelSlug
+    : "";
+  const activeTopCategory = String(filters.topCategory || derivedTopCategory || "");
+  const activeSubcategories = activeTopCategory
+    ? visibleStructure.find((entry) => entry.slug === activeTopCategory)?.children ?? []
+    : visibleStructure.flatMap((entry) => entry.children);
+  const products = allProducts.filter((product) => {
+    const categoryNames = getCategoryDisplayNames(String(product.categorySlug || ""));
+    const matchesTopCategory =
+      !activeTopCategory || categoryNames.topLevelSlug === activeTopCategory;
     const matchesCategory =
       !filters.category || String(product.categorySlug) === filters.category;
     const keyword = (filters.q || "").toLowerCase();
@@ -34,13 +49,46 @@ export default async function ProductsPage({
       .join(" ")
       .toLowerCase();
 
-    return matchesCategory && (!keyword || haystack.includes(keyword));
+    return matchesTopCategory && matchesCategory && (!keyword || haystack.includes(keyword));
   });
 
   return (
     <section className="page-section">
       <div className="content-card product-center-header">
         <h1 className="page-title">{dictionary.nav.products}</h1>
+        <div className="catalog-quick-groups">
+          {visibleStructure.map((group) => (
+            <Link
+              key={group.slug}
+              href={`/${locale}/products?topCategory=${group.slug}`}
+              className={`catalog-group-pill${
+                activeTopCategory === group.slug ? " active" : ""
+              }`}
+            >
+              <strong>{locale === "zh" ? group.nameZh : group.nameEn}</strong>
+              <span>
+                {locale === "zh"
+                  ? `${group.children.reduce((sum, child) => sum + child.products.length, 0)} 个产品`
+                  : `${group.children.reduce((sum, child) => sum + child.products.length, 0)} items`}
+              </span>
+            </Link>
+          ))}
+        </div>
+        {activeSubcategories.length > 0 ? (
+          <div className="catalog-subcategory-row">
+            {activeSubcategories.map((subcategory) => (
+              <Link
+                key={subcategory.slug}
+                href={`/${locale}/products?topCategory=${subcategory.topLevelSlug}&category=${subcategory.slug}`}
+                className={`category-chip${
+                  filters.category === subcategory.slug ? " active" : ""
+                }`}
+              >
+                {locale === "zh" ? subcategory.nameZh : subcategory.nameEn}
+              </Link>
+            ))}
+          </div>
+        ) : null}
         <form className="filter-row product-filter-row">
           <input
             type="text"
@@ -48,17 +96,36 @@ export default async function ProductsPage({
             defaultValue={filters.q}
             placeholder={dictionary.labels.search}
           />
-          <select name="category" defaultValue={filters.category || ""}>
-            <option value="">{dictionary.labels.allCategories}</option>
-            {categories.map((category) => (
-              <option key={String(category.id)} value={String(category.slug)}>
-                {getLocalizedValue(
-                  locale,
-                  String(category.nameZh),
-                  String(category.nameEn)
-                )}
+          <select name="topCategory" defaultValue={activeTopCategory}>
+            <option value="">
+              {locale === "zh" ? "全部一级分类" : "All top-level categories"}
+            </option>
+            {visibleStructure.map((group) => (
+              <option key={group.slug} value={group.slug}>
+                {locale === "zh" ? group.nameZh : group.nameEn}
               </option>
             ))}
+          </select>
+          <select name="category" defaultValue={filters.category || ""}>
+            <option value="">{dictionary.labels.allCategories}</option>
+            {activeTopCategory
+              ? activeSubcategories.map((subcategory) => (
+                  <option key={subcategory.slug} value={subcategory.slug}>
+                    {locale === "zh" ? subcategory.nameZh : subcategory.nameEn}
+                  </option>
+                ))
+              : visibleStructure.map((group) => (
+                  <optgroup
+                    key={group.slug}
+                    label={locale === "zh" ? group.nameZh : group.nameEn}
+                  >
+                    {group.children.map((subcategory) => (
+                      <option key={subcategory.slug} value={subcategory.slug}>
+                        {locale === "zh" ? subcategory.nameZh : subcategory.nameEn}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
           </select>
           <button type="submit">{dictionary.cta.products}</button>
         </form>
@@ -72,6 +139,7 @@ export default async function ProductsPage({
 
       <div className="card-grid product-results-grid">
         {products.map((product) => {
+          const categoryNames = getCategoryDisplayNames(String(product.categorySlug || ""));
           const intro = truncateDisplayText(
             getCatalogCardSummary(locale, {
               applicationZh: String(product.applicationZh),
@@ -89,11 +157,9 @@ export default async function ProductsPage({
               <ProductVisual locale={locale} product={product} width={900} height={640} />
               <div className="pill-row">
                 <span className="soft-pill">
-                  {getLocalizedValue(
-                    locale,
-                    String(product.categoryNameZh),
-                    String(product.categoryNameEn)
-                  )}
+                  {locale === "zh"
+                    ? `${categoryNames.topLevelNameZh} / ${categoryNames.subcategoryNameZh}`
+                    : `${categoryNames.topLevelNameEn} / ${categoryNames.subcategoryNameEn}`}
                 </span>
               </div>
               <h3>

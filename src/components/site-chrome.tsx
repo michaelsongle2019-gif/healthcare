@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/locales";
+import { LocaleSwitch } from "@/components/locale-switch";
 
 type SiteChromeProps = {
   locale: Locale;
@@ -13,17 +14,6 @@ const navItems = [
   { key: "documents", href: "/documents" },
   { key: "contact", href: "/contact" }
 ] as const;
-
-const localeSwitchLabels: Record<Locale, Record<Locale, string>> = {
-  en: {
-    en: "English",
-    zh: "Chinese"
-  },
-  zh: {
-    en: "English",
-    zh: "中文"
-  }
-};
 
 export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
   const dictionary = copy[locale];
@@ -57,25 +47,7 @@ export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
               </Link>
             ))}
           </nav>
-          <div className="locale-switch">
-            {(["en", "zh"] as const).map((targetLocale) => (
-              <Link
-                key={targetLocale}
-                href={`/${targetLocale}`}
-                className={targetLocale === locale ? "active" : ""}
-              >
-                {localeSwitchLabels[locale][targetLocale]}
-              </Link>
-            ))}
-            <Link
-              href="/admin/login"
-              className="admin-entry"
-              aria-label={dictionary.nav.admin}
-              title={dictionary.nav.admin}
-            >
-              {dictionary.nav.admin}
-            </Link>
-          </div>
+          <LocaleSwitch locale={locale} adminLabel={dictionary.nav.admin} />
         </div>
       </header>
       {children}

@@ -204,12 +204,25 @@ export function initializeDatabase(db: Database.Database) {
   upsertDefaultSettings(db);
 }
 
+export function seedDatabaseIfEmpty(db: Database.Database) {
+  const productCount = db.prepare("SELECT COUNT(*) as count FROM products").get() as {
+    count: number;
+  };
+  const categoryCount = db.prepare("SELECT COUNT(*) as count FROM categories").get() as {
+    count: number;
+  };
+
+  if (productCount.count === 0 && categoryCount.count === 0) {
+    seedDemoContent(db);
+  }
+}
+
 export function getDatabase() {
   if (!singleton) {
     const databaseFile = getDatabaseFilePath();
     singleton = createDatabase(databaseFile);
     initializeDatabase(singleton);
-    seedDemoContent(singleton);
+    seedDatabaseIfEmpty(singleton);
   }
 
   return singleton;

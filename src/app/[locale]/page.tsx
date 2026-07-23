@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { ProductVisual } from "@/components/product-visual";
 import {
+  buildVisibleCatalogStructure,
+  getCategoryDisplayNames
+} from "@/lib/catalog-taxonomy";
+import {
   getCatalogCardSummary,
   getHomepageHeroSummary,
   getLocalizedValue,
   truncateDisplayText
 } from "@/lib/content";
 import { copy, ensureLocale } from "@/lib/locales";
-import { listCategories, listProducts } from "@/lib/repository";
+import { listProducts } from "@/lib/repository";
 
 function hasDirectImage(value: unknown) {
   const url = String(value || "").trim().toLowerCase();
@@ -28,7 +32,7 @@ export default async function LocaleHomePage({
   const locale = ensureLocale(rawLocale);
   const dictionary = copy[locale];
   const products = listProducts();
-  const categories = listCategories();
+  const visibleStructure = buildVisibleCatalogStructure(products);
   const featuredProducts = products.slice(0, 6);
   const heroProducts = products
     .filter((product) => hasDirectImage(product.imageUrl))
@@ -105,24 +109,65 @@ export default async function LocaleHomePage({
       </section>
 
       <section className="page-section home-categories-section">
-        <div className="category-strip">
-          {categories.slice(0, 7).map((category) => (
-            <Link
-              key={String(category.id)}
-              href={`/${locale}/products?category=${String(category.slug)}`}
-              className="category-chip"
-            >
-              {getLocalizedValue(
-                locale,
-                String(category.nameZh),
-                String(category.nameEn)
-              )}
-            </Link>
+        <div className="section-heading">
+          <div>
+            <div className="eyebrow">
+              {locale === "zh" ? "分类浏览" : "Browse Categories"}
+            </div>
+            <h2 className="section-title">
+              {locale === "zh" ? "按大类与用途快速查找" : "Find products by type and use case"}
+            </h2>
+          </div>
+          <Link href={`/${locale}/products`} className="pill-link">
+            {locale === "zh" ? "查看全部产品" : "View all products"}
+          </Link>
+        </div>
+
+        <div className="category-group-grid">
+          {visibleStructure.map((group) => (
+            <article key={group.slug} className="content-card category-group-card">
+              <div className="category-group-header">
+                <div>
+                  <div className="eyebrow">
+                    {locale === "zh" ? "一级分类" : "Top-level category"}
+                  </div>
+                  <h3>{locale === "zh" ? group.nameZh : group.nameEn}</h3>
+                </div>
+                <Link
+                  href={`/${locale}/products?topCategory=${group.slug}`}
+                  className="soft-pill"
+                >
+                  {locale === "zh"
+                    ? `${group.children.reduce((sum, child) => sum + child.products.length, 0)} 个产品`
+                    : `${group.children.reduce((sum, child) => sum + child.products.length, 0)} items`}
+                </Link>
+              </div>
+
+              <div className="category-group-children">
+                {group.children.map((subcategory) => (
+                  <Link
+                    key={subcategory.slug}
+                    href={`/${locale}/products?topCategory=${subcategory.topLevelSlug}&category=${subcategory.slug}`}
+                    className="category-subcard"
+                  >
+                    <strong>
+                      {locale === "zh" ? subcategory.nameZh : subcategory.nameEn}
+                    </strong>
+                    <span className="small">
+                      {locale === "zh"
+                        ? `${subcategory.products.length} 个产品`
+                        : `${subcategory.products.length} items`}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </article>
           ))}
         </div>
 
         <div className="card-grid">
           {featuredProducts.map((product) => {
+            const categoryNames = getCategoryDisplayNames(String(product.categorySlug || ""));
             const intro = truncateDisplayText(
               getCatalogCardSummary(locale, {
                 applicationZh: String(product.applicationZh),
@@ -140,11 +185,9 @@ export default async function LocaleHomePage({
                 <ProductVisual locale={locale} product={product} width={900} height={640} />
                 <div className="pill-row">
                   <span className="soft-pill">
-                    {getLocalizedValue(
-                      locale,
-                      String(product.categoryNameZh),
-                      String(product.categoryNameEn)
-                    )}
+                    {locale === "zh"
+                      ? `${categoryNames.topLevelNameZh} / ${categoryNames.subcategoryNameZh}`
+                      : `${categoryNames.topLevelNameEn} / ${categoryNames.subcategoryNameEn}`}
                   </span>
                 </div>
                 <h3>

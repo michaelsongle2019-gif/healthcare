@@ -49,10 +49,23 @@ function isConfidentialPriceText(value: string) {
   ].some((keyword) => normalized.includes(keyword));
 }
 
+function stripDemandPriorityCopy(value: string) {
+  return value
+    .replace(/需求等级\s*[:：]\s*[^；;，,。\n]+/gi, " ")
+    .replace(/闇€姹傜瓑绾[^:：]*[:：]\s*[^；;，,。\n]+/gi, " ")
+    .replace(
+      /\b(?:demand level|priority)\s*[:：]\s*(?:very high|extremely high|high|medium|low)\b/gi,
+      " "
+    )
+    .replace(/[；;，,]\s*(?=[；;，,])/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 function sanitizePublicDisplayText(value: string) {
   return value
     .split(/[\r\n]+/)
-    .map((line) => line.trim())
+    .map((line) => stripDemandPriorityCopy(line).trim())
     .filter((line) => line && !isConfidentialPriceText(line))
     .join("\n")
     .replace(/[ \t]+/g, " ")
@@ -137,7 +150,15 @@ function trimTrailingPunctuation(value: string) {
 }
 
 function firstMeaningfulPoint(value?: string | null) {
-  return trimTrailingPunctuation(splitDisplayPoints(value)[0] || "");
+  for (const point of splitDisplayPoints(value)) {
+    const cleaned = trimTrailingPunctuation(stripDemandPriorityCopy(point));
+
+    if (cleaned) {
+      return cleaned;
+    }
+  }
+
+  return "";
 }
 
 function isSourceVerificationPoint(value: string) {

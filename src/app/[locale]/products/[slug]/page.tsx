@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductVisual } from "@/components/product-visual";
+import { getCategoryDisplayNames } from "@/lib/catalog-taxonomy";
 import {
   canDirectDownload,
   getLocalizedValue,
@@ -89,6 +90,7 @@ export default async function ProductDetailPage({
     locale === "en" && String(product.nameEn || "").trim()
       ? String(product.nameEn)
       : String(product.model);
+  const categoryNames = getCategoryDisplayNames(String(product.categorySlug || ""));
 
   const labels =
     locale === "zh"
@@ -207,11 +209,9 @@ export default async function ProductDetailPage({
               <div className="meta-tile">
                 <div className="small">{labels.categoryLabel}</div>
                 <strong>
-                  {getLocalizedValue(
-                    locale,
-                    String(product.categoryNameZh),
-                    String(product.categoryNameEn)
-                  )}
+                  {locale === "zh"
+                    ? `${categoryNames.topLevelNameZh} / ${categoryNames.subcategoryNameZh}`
+                    : `${categoryNames.topLevelNameEn} / ${categoryNames.subcategoryNameEn}`}
                 </strong>
               </div>
               <div className="meta-tile">
