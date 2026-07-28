@@ -1,0 +1,82 @@
+{
+  "病人监护仪": {
+    "nameEn": "Multiparameter Patient Monitor",
+    "summaryEn": "Bedside multiparameter monitor for continuous assessment of adult, pediatric, and neonatal patients.",
+    "applicationEn": "Intensive care units, operating rooms, recovery areas, emergency departments, and general wards.",
+    "specificationsEn": "ePM 12 configuration with a 12.1-inch touchscreen; supports routine bedside monitoring and configurable physiological parameters.",
+    "packagingEn": "Standard export packaging; probes, cables, and accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "输液泵": {
+    "nameEn": "Volumetric Infusion Pump",
+    "summaryEn": "Single-channel volumetric infusion pump for controlled delivery of fluids and medications.",
+    "applicationEn": "Operating rooms, intensive care units, emergency departments, and general wards.",
+    "specificationsEn": "BeneFusion VP5ex configuration; precise flow control with air-in-line alarm and infusion-pressure monitoring.",
+    "packagingEn": "Standard export packaging; power cord and mounting accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "心电图机": {
+    "nameEn": "12-Lead Electrocardiograph",
+    "summaryEn": "Digital electrocardiograph for resting 12-lead ECG acquisition, display, analysis, and reporting.",
+    "applicationEn": "Cardiology departments, outpatient clinics, emergency departments, and inpatient wards.",
+    "specificationsEn": "BeneHeart R300 12-lead configuration with digital signal acquisition and interference-reduction functions.",
+    "packagingEn": "Standard export packaging; patient cable, limb electrodes, chest electrodes, and recording accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "超声系统": {
+    "nameEn": "Portable Color Doppler Ultrasound System",
+    "summaryEn": "Portable color Doppler ultrasound platform for point-of-care and general diagnostic imaging.",
+    "applicationEn": "Obstetrics and gynecology, radiology, emergency care, critical care, and general ultrasound examinations.",
+    "specificationsEn": "TE9S configuration; supports color Doppler imaging and configurable transducers for clinical applications.",
+    "packagingEn": "Standard export packaging; transducers, trolley, and accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "呼吸机": {
+    "nameEn": "Critical Care Ventilator",
+    "summaryEn": "Invasive ventilator for respiratory support in critical-care and emergency settings.",
+    "applicationEn": "Intensive care units, emergency departments, transport support, and acute-care wards.",
+    "specificationsEn": "SV300 configuration for adult and pediatric ventilation; ventilation modes and accessories are configured to clinical requirements.",
+    "packagingEn": "Standard export packaging; breathing circuit, humidification, and mounting accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "除颤仪": {
+    "nameEn": "Automated External Defibrillator",
+    "summaryEn": "Automated external defibrillator with guided operation for emergency response to sudden cardiac arrest.",
+    "applicationEn": "Emergency departments, outpatient areas, ambulances, public-access locations, and first-response services.",
+    "specificationsEn": "BeneHeart C2 AED configuration with voice and visual prompts; electrode and battery options depend on the destination market.",
+    "packagingEn": "Standard export packaging; battery, electrode pads, carrying case, and accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "制氧机": {
+    "nameEn": "10 L Medical Oxygen Concentrator",
+    "summaryEn": "Medical oxygen concentrator for continuous supplemental oxygen delivery.",
+    "applicationEn": "Hospital wards, clinics, long-term care facilities, and home oxygen therapy.",
+    "specificationsEn": "Model 8F-10W; nominal flow capacity up to 10 L/min with an integrated nebulization function.",
+    "packagingEn": "Standard export packaging; humidifier bottle, tubing, and patient accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "麻醉机": {
+    "nameEn": "Anesthesia Workstation",
+    "summaryEn": "Anesthesia workstation for delivery and monitoring of inhalational anesthesia during surgery.",
+    "applicationEn": "Operating rooms and surgical centers performing procedures under general anesthesia.",
+    "specificationsEn": "A4C configuration with an integrated breathing system and anesthetic vaporizer compatibility; final configuration depends on clinical requirements.",
+    "packagingEn": "Standard export packaging; breathing system, vaporizers, gas hoses, and monitoring accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "病床": {
+    "nameEn": "Multifunction Electric Hospital Bed",
+    "summaryEn": "Electric hospital bed with configurable positioning functions for inpatient and long-term care.",
+    "applicationEn": "General wards, rehabilitation units, long-term care facilities, and elderly-care settings.",
+    "specificationsEn": "Model CA-67; multiple electric position adjustments with side rails designed to support patient safety.",
+    "packagingEn": "Standard export packaging; mattress, side rails, castors, and optional accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  },
+  "吸引器": {
+    "nameEn": "Electric Suction Apparatus",
+    "summaryEn": "Mobile electric suction apparatus for removal of blood, secretions, and other fluids during clinical procedures.",
+    "applicationEn": "Operating rooms, wards, outpatient clinics, emergency departments, and treatment rooms.",
+    "specificationsEn": "Model DFX-23C III; adjustable high-vacuum suction with overflow protection.",
+    "packagingEn": "Standard export packaging; collection bottles, tubing, filters, and accessories are configured to project requirements.",
+    "manufacturerEn": "Manufacturer information available on request"
+  }
+}

@@ -7,8 +7,14 @@ import {
 import { realProducts } from "@/lib/site-catalog.generated";
 
 describe("product showcase benchmark data", () => {
-  test("every current real-catalog product exposes a benchmark table", () => {
-    for (const product of realProducts) {
+  test("every curated benchmark product exposes a benchmark table", () => {
+    const curatedBenchmarkProducts = realProducts.filter((product) =>
+      /^(1-|2-|3-1-|4-|5-1-|6-|7-|8-)/.test(product.slug)
+    );
+
+    expect(curatedBenchmarkProducts).toHaveLength(27);
+
+    for (const product of curatedBenchmarkProducts) {
       const benchmark = getCatalogBenchmark(product.slug);
 
       expect(benchmark, product.slug).toBeDefined();

@@ -1,0 +1,306 @@
+{
+  "医用外科手套": {
+    "nameEn": "Sterile Surgical Gloves",
+    "summaryEn": "Sterile surgical gloves for operative and other aseptic clinical procedures.",
+    "applicationEn": "Operating rooms, hospitals, clinics, and other aseptic procedure areas.",
+    "specificationsEn": "Sterile disposable rubber surgical gloves; size 7.5; supplied as a pair; compliant configuration available to project requirements.",
+    "packagingEn": "1 pair per sterile pouch; 50 pairs per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用口罩及个人防护装备": {
+    "nameEn": "Medical Masks and Personal Protective Equipment",
+    "summaryEn": "Medical masks and coordinated personal protective equipment for healthcare and occupational protection.",
+    "applicationEn": "Healthcare facilities, industrial workplaces, and other environments requiring respiratory and barrier protection.",
+    "specificationsEn": "Medical protective respirator (N95) and disposable surgical-mask configurations; project-specific PPE combinations available.",
+    "packagingEn": "Surgical masks: 10 pieces per pack; N95 respirators: 5 pieces per pack.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "注射器及针头": {
+    "nameEn": "Disposable Syringes and Hypodermic Needles",
+    "summaryEn": "Sterile single-use syringes supplied with hypodermic needles for routine injection and aspiration.",
+    "applicationEn": "Hospitals, clinics, pharmacies, and general medical procedures.",
+    "specificationsEn": "5 mL sterile disposable syringe with needle; additional capacities and needle gauges available to project requirements.",
+    "packagingEn": "1 syringe per sterile pouch; 100 syringes per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "静脉输液器及留置针": {
+    "nameEn": "IV Infusion Sets and Peripheral IV Cannulas",
+    "summaryEn": "Sterile infusion sets and peripheral intravenous cannulas for vascular access and fluid administration.",
+    "applicationEn": "Hospitals, emergency departments, clinics, and infusion units.",
+    "specificationsEn": "Disposable IV infusion set with needle and 22 G peripheral IV cannula; alternative configurations available.",
+    "packagingEn": "Each infusion set and IV cannula is individually packed.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "伤口敷料及绷带": {
+    "nameEn": "Sterile Wound Dressings and Elastic Bandages",
+    "summaryEn": "Sterile wound dressings and elastic bandages for routine wound coverage, protection, and support.",
+    "applicationEn": "Hospitals, clinics, pharmacies, and home-care settings.",
+    "specificationsEn": "Sterile wound dressing, 10 × 10 cm, supplied with an elastic bandage; additional sizes available.",
+    "packagingEn": "Dressings are individually sterile packed; bandages are individually packed.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用尿袋": {
+    "nameEn": "Urinary Drainage Bags",
+    "summaryEn": "Single-use urinary drainage bags for closed urine collection.",
+    "applicationEn": "Hospitals, clinics, long-term care facilities, and home-care settings.",
+    "specificationsEn": "1,000 mL drainage bag with non-return valve; tubing and outlet configurations available to project requirements.",
+    "packagingEn": "1 bag per pack; 10 bags per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用导管": {
+    "nameEn": "Two-Way Foley Catheters",
+    "summaryEn": "Sterile indwelling urinary catheters for bladder drainage.",
+    "applicationEn": "Urology departments, hospitals, clinics, and home-care settings.",
+    "specificationsEn": "Sterile two-way Foley catheter, 16 Fr; medical-grade silicone configuration.",
+    "packagingEn": "1 catheter per sterile pouch; 10 catheters per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "真空采血管": {
+    "nameEn": "Vacuum Blood Collection Tubes",
+    "summaryEn": "Evacuated blood collection tubes for specimen collection and laboratory testing.",
+    "applicationEn": "Clinical laboratories, hospitals, clinics, and blood collection centers.",
+    "specificationsEn": "5 mL clot-activator tube; alternative draw volumes and additives available.",
+    "packagingEn": "100 tubes per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "快速诊断检测试剂盒": {
+    "nameEn": "Rapid Diagnostic Test Kits",
+    "summaryEn": "Point-of-care rapid test kits for screening and qualitative detection applications.",
+    "applicationEn": "Clinics, pharmacies, laboratories, and other authorized testing settings.",
+    "specificationsEn": "Colloidal-gold SARS-CoV-2 antigen test configuration; test format and regulatory availability depend on the destination market.",
+    "packagingEn": "1 test per pouch; 20 tests per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用手术洞巾及手术衣": {
+    "nameEn": "Sterile Fenestrated Drapes and Reinforced Surgical Gowns",
+    "summaryEn": "Sterile fenestrated drapes and reinforced disposable gowns for maintaining an aseptic surgical field.",
+    "applicationEn": "Operating rooms and other sterile procedure areas.",
+    "specificationsEn": "Single-use sterile fenestrated drape and reinforced surgical-gown configurations; sizes available to project requirements.",
+    "packagingEn": "Each drape and gown is individually sterile packed.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用体温计": {
+    "nameEn": "Digital Clinical Thermometers",
+    "summaryEn": "Digital clinical thermometers for routine body-temperature measurement.",
+    "applicationEn": "Hospitals, clinics, long-term care facilities, and home-care settings.",
+    "specificationsEn": "Digital axillary thermometer with clinical measurement accuracy.",
+    "packagingEn": "1 thermometer per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用血压计": {
+    "nameEn": "Upper-Arm Electronic Blood Pressure Monitor",
+    "summaryEn": "Automatic upper-arm monitor for non-invasive blood pressure and pulse measurement.",
+    "applicationEn": "Hospitals, clinics, community care, and home monitoring.",
+    "specificationsEn": "Model YE670A; automatic upper-arm measurement configuration.",
+    "packagingEn": "1 monitor per retail box.",
+    "manufacturerEn": "Yuwell"
+  },
+  "医用听诊器": {
+    "nameEn": "Single-Head Stethoscope",
+    "summaryEn": "Clinical stethoscope for routine heart and lung auscultation.",
+    "applicationEn": "Hospitals, clinics, examination rooms, and general practice.",
+    "specificationsEn": "Single-head stethoscope with a brass chestpiece.",
+    "packagingEn": "1 stethoscope per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用止血带": {
+    "nameEn": "Disposable Tourniquets",
+    "summaryEn": "Single-use tourniquets for temporary venous occlusion during blood collection and IV access.",
+    "applicationEn": "Hospitals, clinics, laboratories, and blood collection centers.",
+    "specificationsEn": "Disposable buckle-type tourniquet; size and color options available.",
+    "packagingEn": "1 tourniquet per pack; 100 tourniquets per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用胶带": {
+    "nameEn": "Nonwoven Medical Adhesive Tape",
+    "summaryEn": "Breathable medical adhesive tape for securing dressings, tubing, and catheters.",
+    "applicationEn": "Hospitals, clinics, first-aid services, and home-care settings.",
+    "specificationsEn": "Nonwoven breathable tape, 1.25 cm × 9.14 m; additional widths available.",
+    "packagingEn": "1 roll per pack; 12 rolls per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "创可贴": {
+    "nameEn": "Sterile Adhesive Bandages",
+    "summaryEn": "Sterile adhesive bandages for protecting minor cuts and abrasions.",
+    "applicationEn": "Hospitals, clinics, pharmacies, first-aid kits, and home care.",
+    "specificationsEn": "Elastic-fabric adhesive bandage, 72 × 19 mm; additional shapes and sizes available.",
+    "packagingEn": "Individually wrapped; 100 pieces per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用纱布": {
+    "nameEn": "Sterile Gauze Swabs",
+    "summaryEn": "Sterile absorbent gauze swabs for wound cleansing, dressing, and fluid absorption.",
+    "applicationEn": "Hospitals, clinics, operating rooms, and home-care settings.",
+    "specificationsEn": "8-ply sterile gauze swab, 5 × 5 cm; additional ply counts and sizes available.",
+    "packagingEn": "Individually sterile packed; 100 pieces per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用棉球": {
+    "nameEn": "Sterile Cotton Balls",
+    "summaryEn": "Sterile absorbent cotton balls for skin preparation, cleansing, and antiseptic application.",
+    "applicationEn": "Hospitals, clinics, treatment rooms, and home-care settings.",
+    "specificationsEn": "Sterile medical cotton ball, approximately 0.5 g per piece.",
+    "packagingEn": "Individually packed; 100 pieces per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用酒精": {
+    "nameEn": "75% Alcohol Disinfectant",
+    "summaryEn": "Ready-to-use 75% alcohol disinfectant for appropriate skin and hard-surface disinfection.",
+    "applicationEn": "Hospitals, clinics, treatment rooms, and home-care settings.",
+    "specificationsEn": "75% alcohol disinfectant solution, 500 mL.",
+    "packagingEn": "1 bottle per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "碘伏": {
+    "nameEn": "Povidone-Iodine Antiseptic Solution",
+    "summaryEn": "Povidone-iodine antiseptic solution for pre-procedure skin preparation and appropriate wound-care applications.",
+    "applicationEn": "Hospitals, clinics, treatment rooms, and home-care settings.",
+    "specificationsEn": "Medical-grade povidone-iodine solution, 500 mL.",
+    "packagingEn": "1 bottle per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用检查手套": {
+    "nameEn": "Disposable Medical Examination Gloves",
+    "summaryEn": "Single-use medical examination gloves for routine patient examination and barrier protection.",
+    "applicationEn": "Hospitals, clinics, laboratories, and general examination areas.",
+    "specificationsEn": "Disposable rubber examination gloves, medium size; sterile configuration listed.",
+    "packagingEn": "1 pair per pack; 100 pairs per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用外科口罩": {
+    "nameEn": "Sterile Surgical Masks",
+    "summaryEn": "Three-layer sterile surgical masks for healthcare barrier protection.",
+    "applicationEn": "Hospitals, clinics, operating rooms, and other healthcare facilities.",
+    "specificationsEn": "Disposable sterile surgical mask, 17.5 × 9.5 cm.",
+    "packagingEn": "10 masks per pack; 50 packs per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "一次性输液器": {
+    "nameEn": "Disposable IV Infusion Sets",
+    "summaryEn": "Sterile single-use infusion sets for intravenous administration of fluids and medication.",
+    "applicationEn": "Hospitals, clinics, emergency departments, and infusion units.",
+    "specificationsEn": "Disposable IV infusion set with needle; listed needle size 5.5; alternative configurations available.",
+    "packagingEn": "1 infusion set per sterile pouch; 25 sets per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用剪刀": {
+    "nameEn": "Medical Scissors",
+    "summaryEn": "Reusable medical scissors for dressing preparation and general clinical procedures.",
+    "applicationEn": "Hospitals, clinics, operating rooms, and wound-care settings.",
+    "specificationsEn": "Medical-grade stainless-steel scissors, straight pointed pattern, 14 cm.",
+    "packagingEn": "1 instrument per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用镊子": {
+    "nameEn": "Medical Dressing Forceps",
+    "summaryEn": "Reusable medical forceps for dressing changes and general clinical handling.",
+    "applicationEn": "Hospitals, clinics, operating rooms, and wound-care settings.",
+    "specificationsEn": "Medical-grade stainless-steel straight forceps, 12.5 cm.",
+    "packagingEn": "1 instrument per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用防护服（隔离衣）": {
+    "nameEn": "Disposable Medical Protective Coveralls",
+    "summaryEn": "Single-use protective coveralls for infection-control and barrier-protection applications.",
+    "applicationEn": "Hospitals, clinics, isolation areas, and other healthcare facilities.",
+    "specificationsEn": "Reinforced one-piece disposable medical protective coverall; sizes available to project requirements.",
+    "packagingEn": "1 coverall per pack.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用鞋套": {
+    "nameEn": "Disposable Medical Shoe Covers",
+    "summaryEn": "Single-use shoe covers for contamination control in clinical and controlled environments.",
+    "applicationEn": "Hospitals, clinics, operating rooms, laboratories, and clean areas.",
+    "specificationsEn": "Heavy-duty disposable medical shoe-cover configuration.",
+    "packagingEn": "100 pieces per pack.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用一次性帽子": {
+    "nameEn": "Disposable Medical Clip Caps",
+    "summaryEn": "Single-use medical caps for hair containment and contamination control.",
+    "applicationEn": "Hospitals, clinics, operating rooms, laboratories, and clean areas.",
+    "specificationsEn": "Disposable clip cap; sterile configuration listed; sizes and colors available.",
+    "packagingEn": "100 pieces per pack.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用护目镜": {
+    "nameEn": "Medical Safety Goggles",
+    "summaryEn": "Enclosed medical safety goggles for splash and droplet protection of the eyes.",
+    "applicationEn": "Hospitals, clinics, laboratories, and other healthcare environments.",
+    "specificationsEn": "Fully enclosed, splash-resistant goggle configuration.",
+    "packagingEn": "1 pair per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用防护面屏": {
+    "nameEn": "Disposable Medical Face Shields",
+    "summaryEn": "Full-face disposable shields for splash and droplet protection.",
+    "applicationEn": "Hospitals, clinics, laboratories, and other healthcare environments.",
+    "specificationsEn": "Disposable full-face protective shield with clear visor.",
+    "packagingEn": "1 face shield per pack.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "消毒湿巾": {
+    "nameEn": "75% Alcohol Disinfectant Wipes",
+    "summaryEn": "Ready-to-use alcohol wipes for appropriate hard-surface disinfection and hand hygiene.",
+    "applicationEn": "Hospitals, clinics, workplaces, and home-care settings.",
+    "specificationsEn": "Wipes impregnated with 75% alcohol; 10 wipes per pack.",
+    "packagingEn": "10 wipes per pack; 24 packs per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "免洗洗手液": {
+    "nameEn": "Alcohol-Based Surgical Hand Rub",
+    "summaryEn": "Waterless alcohol-based hand rub for hygienic and surgical hand antisepsis.",
+    "applicationEn": "Hospitals, clinics, procedure areas, and public facilities.",
+    "specificationsEn": "Alcohol-based surgical hand antiseptic gel, 500 mL.",
+    "packagingEn": "1 bottle per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用消毒凝胶": {
+    "nameEn": "Alcohol-Free Skin Antiseptic Gel",
+    "summaryEn": "Medical-grade alcohol-free antiseptic gel for appropriate skin disinfection applications.",
+    "applicationEn": "Hospitals, clinics, treatment rooms, and home-care settings.",
+    "specificationsEn": "Alcohol-free skin antiseptic gel, 500 mL.",
+    "packagingEn": "1 bottle per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "采血针": {
+    "nameEn": "Disposable Blood Collection Needles",
+    "summaryEn": "Sterile single-use needles for venous blood collection.",
+    "applicationEn": "Hospitals, clinics, laboratories, and blood collection centers.",
+    "specificationsEn": "Sterile disposable blood collection needle, 28 G.",
+    "packagingEn": "1 needle per sterile pouch; 100 needles per box.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用床单": {
+    "nameEn": "Disposable Medical Bed Sheets",
+    "summaryEn": "Single-use bed sheets for patient-surface hygiene and contamination control.",
+    "applicationEn": "Hospitals, clinics, examination rooms, and long-term care facilities.",
+    "specificationsEn": "Disposable medical bed sheet, 200 × 100 cm; sterile configuration listed.",
+    "packagingEn": "1 sheet per pack; 10 sheets per outer pack.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用枕套": {
+    "nameEn": "Disposable Medical Pillow Covers",
+    "summaryEn": "Single-use pillow covers for patient-surface hygiene and contamination control.",
+    "applicationEn": "Hospitals, clinics, examination rooms, and long-term care facilities.",
+    "specificationsEn": "Disposable medical pillow cover, 74 × 48 cm; sterile configuration listed.",
+    "packagingEn": "1 cover per pack; 10 covers per outer pack.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用垃圾袋": {
+    "nameEn": "Infectious Clinical Waste Bags",
+    "summaryEn": "Heavy-duty clinical waste bags for containment and disposal of infectious healthcare waste.",
+    "applicationEn": "Hospitals, clinics, laboratories, and other healthcare facilities.",
+    "specificationsEn": "Heavy-duty infectious-waste bag, 50 × 60 cm.",
+    "packagingEn": "100 bags per pack.",
+    "manufacturerEn": "Zhende Medical"
+  },
+  "医用锐器盒": {
+    "nameEn": "Sharps Containers",
+    "summaryEn": "Puncture-resistant containers for the safe disposal of used needles and other medical sharps.",
+    "applicationEn": "Hospitals, clinics, laboratories, pharmacies, and blood collection centers.",
+    "specificationsEn": "Single-use round sharps container, 5 L.",
+    "packagingEn": "1 container per box.",
+    "manufacturerEn": "Zhende Medical"
+  }
+}

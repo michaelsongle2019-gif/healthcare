@@ -16,6 +16,7 @@ import {
   isProtectedDocument
 } from "@/lib/content";
 import { documentRequestSchema, productSchema } from "@/lib/validators";
+import { buildLocaleSwitchHref } from "@/lib/locale-switch";
 
 describe("authentication helpers", () => {
   test("default admin credentials are accepted", async () => {
@@ -58,6 +59,23 @@ describe("authentication helpers", () => {
 });
 
 describe("content helpers", () => {
+  test("locale switching preserves the current path and query string", () => {
+    expect(
+      buildLocaleSwitchHref(
+        "/zh/products",
+        "category=surgical-procedure-packs",
+        "en"
+      )
+    ).toBe("/en/products?category=surgical-procedure-packs");
+    expect(
+      buildLocaleSwitchHref(
+        "/en/products/disposable-angiography-pack",
+        "",
+        "zh"
+      )
+    ).toBe("/zh/products/disposable-angiography-pack");
+  });
+
   test("direct download is only available for public documents with a file path", () => {
     expect(
       canDirectDownload({ accessLevel: "public", filePath: "/files/a.pdf" })
@@ -109,6 +127,16 @@ describe("content helpers", () => {
     ).toBe("Routine clinical imaging");
   });
 
+  test("localized values strip demand priority copy", () => {
+    expect(
+      getLocalizedValue(
+        "zh",
+        "医院、药店、家庭护理；需求等级：高；无菌伤口护理敷料及粘性绷带",
+        ""
+      )
+    ).toBe("医院、药店、家庭护理；无菌伤口护理敷料及粘性绷带");
+  });
+
   test("english localization normalizes Chinese regulatory prefixes", () => {
     expect(
       getLocalizedValue(
@@ -146,6 +174,23 @@ describe("content helpers", () => {
     expect(text).toContain("用于软组织切割止血");
     expect(text).toContain("官方公开为 Y16 系统主机");
     expect(text).toContain("型号 Y16 可在官网公开页面直接对应");
+  });
+
+  test("catalog card summary removes demand priority copy", () => {
+    const text = getCatalogCardSummary("zh", {
+      applicationZh: "医院、药店、家庭护理",
+      applicationEn: "",
+      specificationsZh: "需求等级：高；无菌伤口护理敷料及粘性绷带",
+      specificationsEn: "",
+      summaryZh: "适用于基础伤口包扎与护理",
+      summaryEn: ""
+    });
+
+    expect(text).toContain("医院、药店、家庭护理");
+    expect(text).toContain("无菌伤口护理敷料及粘性绷带");
+    expect(text).toContain("适用于基础伤口包扎与护理");
+    expect(text).not.toContain("需求等级");
+    expect(text).not.toContain("需求等级：高");
   });
 });
 

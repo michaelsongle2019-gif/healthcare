@@ -1531,6 +1531,36 @@ const categoryBenchmarkTemplates: Record<
   }
 };
 
+const benchmarkCategoryByProductSlug: Record<string, string> = {
+  "1-1-y16": "ultrasonic-surgery-systems-consumables",
+  "1-2-hp401": "ultrasonic-surgery-systems-consumables",
+  "1-3-hp501": "ultrasonic-surgery-systems-consumables",
+  "1-4-sg": "ultrasonic-surgery-systems-consumables",
+  "1-5-ss": "ultrasonic-surgery-systems-consumables",
+  "1-6-ocbsgbl": "ultrasonic-surgery-systems-consumables",
+  "1-7-hifcbsgpl22": "ultrasonic-surgery-systems-consumables",
+  "1-8-hifcbsgpl35": "ultrasonic-surgery-systems-consumables",
+  "1-9-hifcbsgpl45": "ultrasonic-surgery-systems-consumables",
+  "1-10-ifcbsgpl22": "ultrasonic-surgery-systems-consumables",
+  "1-11-ifcbsgpl35": "ultrasonic-surgery-systems-consumables",
+  "1-12-ifcbsgpl45": "ultrasonic-surgery-systems-consumables",
+  "2-1": "surgical-staplers",
+  "2-2": "surgical-staplers",
+  "2-3": "surgical-staplers",
+  "2-4": "surgical-staplers",
+  "3-1-hypixel-ux5-4k": "endoscopy-imaging-systems",
+  "4-1-oms3500": "surgical-microscopes",
+  "4-2-oms2350": "surgical-microscopes",
+  "5-1-rosewood": "ophthalmic-phaco-systems",
+  "6-1-consona-n9": "ultrasound-diagnostic-systems",
+  "6-2-resona-i9": "ultrasound-diagnostic-systems",
+  "7-1-toumai": "surgical-robotics",
+  "7-2-skywalker": "surgical-robotics",
+  "7-3-r-one": "surgical-robotics",
+  "8-1-excelim-116": "neurosurgical-navigation-systems",
+  "8-2-neuronav-118": "neurosurgical-navigation-systems"
+};
+
 const showcaseBenchmarkBySlug: Record<string, ProductBenchmarkShowcase> = {
   "umr-790": {
     eyebrowZh: "国际同级对比",
@@ -1703,7 +1733,9 @@ function getSourceLinks(product: ProductRecord) {
 }
 
 function buildGenericBenchmark(product: ProductRecord): ProductBenchmarkShowcase | null {
-  const categorySlug = String(product.categorySlug || "");
+  const categorySlug =
+    benchmarkCategoryByProductSlug[String(product.slug || "")] ||
+    String(product.categorySlug || "");
   const template = categoryBenchmarkTemplates[categorySlug];
 
   if (!template) {
