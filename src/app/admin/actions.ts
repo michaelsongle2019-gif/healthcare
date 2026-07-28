@@ -75,6 +75,7 @@ export async function saveSettingsAction(formData: FormData) {
     taglineEn: formData.get("taglineEn"),
     addressZh: formData.get("addressZh"),
     addressEn: formData.get("addressEn"),
+    contactName: formData.get("contactName"),
     phone: formData.get("phone"),
     email: formData.get("email"),
     heroTitleZh: formData.get("heroTitleZh"),

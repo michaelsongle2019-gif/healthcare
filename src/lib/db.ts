@@ -144,10 +144,11 @@ function upsertDefaultSettings(db: Database.Database) {
     taglineZh: "国产医疗影像设备与介入耗材展示平台",
     taglineEn:
       "A bilingual presentation platform for authentic medical devices and consumables",
-    addressZh: "中国上海张江高端医疗产业园 88 号",
-    addressEn: "88 Advanced MedTech Park, Zhangjiang, Shanghai, China",
-    phone: "+86 21 5555 8800",
-    email: "bd@aurexismedical.example",
+    addressZh: "南非约翰内斯堡",
+    addressEn: "Johannesburg, South Africa",
+    contactName: "Kenny",
+    phone: "+27665179206",
+    email: "nihenniuya@gmail.com",
     heroTitleZh: "让国产高端医疗设备，被采购团队一眼看懂",
     heroTitleEn: "Professional Presentation of Authentic Medical Product Lines",
     heroBodyZh:

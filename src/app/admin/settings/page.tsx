@@ -37,6 +37,10 @@ export default async function AdminSettingsPage() {
               <textarea name="addressEn" defaultValue={settings.addressEn} />
             </label>
             <label>
+              联系人
+              <input name="contactName" defaultValue={settings.contactName} />
+            </label>
+            <label>
               联系电话
               <input name="phone" defaultValue={settings.phone} />
             </label>

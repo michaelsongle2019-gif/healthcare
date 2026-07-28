@@ -31,9 +31,11 @@ export default async function ContactPage({
             {getLocalizedValue(locale, settings.addressZh, settings.addressEn)}
           </p>
           <p className="section-copy">
-            {settings.phone}
+            {locale === "zh" ? "联系人" : "Contact"}: {settings.contactName}
             <br />
-            {settings.email}
+            {locale === "zh" ? "电话" : "Phone"}: {settings.phone}
+            <br />
+            {locale === "zh" ? "邮箱" : "Email"}: {settings.email}
           </p>
         </div>
         <div className="content-card">

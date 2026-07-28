@@ -95,6 +95,7 @@ export const settingsSchema = z.object({
   taglineEn: z.string().trim().min(2),
   addressZh: z.string().trim().min(2),
   addressEn: z.string().trim().min(2),
+  contactName: z.string().trim().min(2),
   phone: z.string().trim().min(6),
   email: z.email(),
   heroTitleZh: z.string().trim().min(2),
