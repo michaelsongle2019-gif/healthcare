@@ -1,5 +1,4 @@
 import { ensureLocale, copy } from "@/lib/locales";
-import { getLocalizedValue } from "@/lib/content";
 import { getSiteSettings } from "@/lib/repository";
 import { submitInquiryAction } from "@/app/actions/public";
 
@@ -26,9 +25,6 @@ export default async function ContactPage({
             {locale === "zh"
               ? "欢迎提交项目需求、产品咨询或资料申请，我们将按项目场景进行对应沟通。"
               : "Please contact us for product inquiries, project discussions, or document requests. Our team will respond according to the relevant clinical or commercial scenario."}
-          </p>
-          <p className="section-copy">
-            {getLocalizedValue(locale, settings.addressZh, settings.addressEn)}
           </p>
           <p className="section-copy">
             {locale === "zh" ? "联系人" : "Contact"}: {settings.contactName}
