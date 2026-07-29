@@ -74,21 +74,6 @@ export default async function ProductsPage({
             </Link>
           ))}
         </div>
-        {activeSubcategories.length > 0 ? (
-          <div className="catalog-subcategory-row">
-            {activeSubcategories.map((subcategory) => (
-              <Link
-                key={subcategory.slug}
-                href={`/${locale}/products?topCategory=${subcategory.topLevelSlug}&category=${subcategory.slug}`}
-                className={`category-chip${
-                  filters.category === subcategory.slug ? " active" : ""
-                }`}
-              >
-                {locale === "zh" ? subcategory.nameZh : subcategory.nameEn}
-              </Link>
-            ))}
-          </div>
-        ) : null}
         <form className="filter-row product-filter-row">
           <input
             type="text"
