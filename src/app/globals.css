@@ -843,7 +843,16 @@ button {
 }
 
 .product-filter-row {
-  grid-template-columns: 2fr 1fr auto;
+  grid-template-columns:
+    minmax(14rem, 1.35fr)
+    minmax(11rem, 0.9fr)
+    minmax(11rem, 0.9fr)
+    max-content;
+}
+
+.product-filter-row button {
+  min-width: 10.5rem;
+  white-space: nowrap;
 }
 
 .product-center-header {
