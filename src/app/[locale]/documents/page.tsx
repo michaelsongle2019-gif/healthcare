@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { submitDocumentRequestAction } from "@/app/actions/public";
 import {
   canDirectDownload,
@@ -6,6 +7,7 @@ import {
   isProtectedDocument
 } from "@/lib/content";
 import { ensureLocale, copy } from "@/lib/locales";
+import { isDocumentCenterVisible } from "@/lib/public-features";
 import { listDocuments } from "@/lib/repository";
 
 export default async function DocumentsPage({
@@ -15,6 +17,10 @@ export default async function DocumentsPage({
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ status?: string }>;
 }) {
+  if (!isDocumentCenterVisible()) {
+    notFound();
+  }
+
   const { locale: rawLocale } = await params;
   const locale = ensureLocale(rawLocale);
   const dictionary = copy[locale];

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { isDocumentCenterVisible } from "@/lib/public-features";
 import { listProducts } from "@/lib/repository";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -9,13 +10,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "/en",
     "/en/products",
-    "/en/documents",
     "/en/contact",
     "/zh",
     "/zh/products",
-    "/zh/documents",
     "/zh/contact"
   ];
+  if (isDocumentCenterVisible()) {
+    staticRoutes.push("/en/documents", "/zh/documents");
+  }
 
   const productRoutes = listProducts().flatMap((product) => [
     `/en/products/${String(product.slug)}`,

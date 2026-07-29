@@ -15,6 +15,7 @@ import {
   getProductShowcase,
   getShowcaseFallbackProduct
 } from "@/lib/product-showcase";
+import { isDocumentCenterVisible } from "@/lib/public-features";
 import { findProductBySlug, listDocuments, listProducts } from "@/lib/repository";
 
 export default async function ProductDetailPage({
@@ -25,6 +26,7 @@ export default async function ProductDetailPage({
   const { locale: rawLocale, slug } = await params;
   const locale = ensureLocale(rawLocale);
   const dictionary = copy[locale];
+  const showDocumentCenter = isDocumentCenterVisible();
   const product = findProductBySlug(slug) ?? getShowcaseFallbackProduct(slug);
 
   if (!product) {
@@ -33,9 +35,11 @@ export default async function ProductDetailPage({
 
   const showcase = getProductShowcase(slug);
   const benchmark = showcase?.benchmark ?? getCatalogBenchmark(slug);
-  const documents = listDocuments().filter(
-    (document) => String(document.productId || "") === String(product.id)
-  );
+  const documents = showDocumentCenter
+    ? listDocuments().filter(
+        (document) => String(document.productId || "") === String(product.id)
+      )
+    : [];
   const relatedProducts = listProducts()
     .filter(
       (entry) =>
@@ -278,7 +282,7 @@ export default async function ProductDetailPage({
         </div>
       ) : null}
 
-      <div className="page-section two-grid">
+      <div className={`page-section${showDocumentCenter ? " two-grid" : ""}`}>
         <div className="content-card detail-stack">
           <div className="eyebrow">{labels.useEyebrow}</div>
           <h2 className="section-title">{labels.useTitle}</h2>
@@ -386,49 +390,51 @@ export default async function ProductDetailPage({
           )}
         </div>
 
-        <div className="content-card detail-stack">
-          <div className="eyebrow">{labels.sourcesEyebrow}</div>
-          <h2 className="section-title">{labels.sourcesTitle}</h2>
-          <div className="document-stack">
-            {documents.map((document) => {
-              const directDownload = canDirectDownload({
-                accessLevel: document.accessLevel as "public" | "request",
-                filePath: String(document.filePath || "")
-              });
+        {showDocumentCenter ? (
+          <div className="content-card detail-stack">
+            <div className="eyebrow">{labels.sourcesEyebrow}</div>
+            <h2 className="section-title">{labels.sourcesTitle}</h2>
+            <div className="document-stack">
+              {documents.map((document) => {
+                const directDownload = canDirectDownload({
+                  accessLevel: document.accessLevel as "public" | "request",
+                  filePath: String(document.filePath || "")
+                });
 
-              return (
-                <div key={String(document.id)} className="document-row">
-                  <div>
-                    <strong>
-                      {getLocalizedValue(
-                        locale,
-                        String(document.titleZh),
-                        String(document.titleEn)
-                      )}
-                    </strong>
-                    <p className="card-copy">
-                      {getLocalizedValue(
-                        locale,
-                        String(document.descriptionZh),
-                        String(document.descriptionEn)
-                      )}
-                    </p>
+                return (
+                  <div key={String(document.id)} className="document-row">
+                    <div>
+                      <strong>
+                        {getLocalizedValue(
+                          locale,
+                          String(document.titleZh),
+                          String(document.titleEn)
+                        )}
+                      </strong>
+                      <p className="card-copy">
+                        {getLocalizedValue(
+                          locale,
+                          String(document.descriptionZh),
+                          String(document.descriptionEn)
+                        )}
+                      </p>
+                    </div>
+                    <Link
+                      href={directDownload ? String(document.filePath) : `/${locale}/documents`}
+                      className="pill-link"
+                      target={directDownload ? "_blank" : undefined}
+                      rel={directDownload ? "noreferrer" : undefined}
+                    >
+                      {document.accessLevel === "public"
+                        ? labels.viewSourceLabel
+                        : dictionary.cta.request}
+                    </Link>
                   </div>
-                  <Link
-                    href={directDownload ? String(document.filePath) : `/${locale}/documents`}
-                    className="pill-link"
-                    target={directDownload ? "_blank" : undefined}
-                    rel={directDownload ? "noreferrer" : undefined}
-                  >
-                    {document.accessLevel === "public"
-                      ? labels.viewSourceLabel
-                      : dictionary.cta.request}
-                  </Link>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
 
       {relatedProducts.length > 0 ? (

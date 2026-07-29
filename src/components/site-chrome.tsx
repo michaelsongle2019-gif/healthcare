@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/locales";
 import { LocaleSwitch } from "@/components/locale-switch";
+import { isDocumentCenterVisible } from "@/lib/public-features";
 
 type SiteChromeProps = {
   locale: Locale;
@@ -17,6 +18,10 @@ const navItems = [
 
 export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
   const dictionary = copy[locale];
+  const showDocumentCenter = isDocumentCenterVisible();
+  const visibleNavItems = showDocumentCenter
+    ? navItems
+    : navItems.filter((item) => item.key !== "documents");
 
   return (
     <div className="page-shell">
@@ -37,7 +42,7 @@ export function SiteChrome({ locale, companyName, children }: SiteChromeProps) {
             </span>
           </Link>
           <nav className="site-nav">
-            {navItems.map((item) => (
+            {visibleNavItems.map((item) => (
               <Link
                 key={item.key}
                 href={`/${locale}${item.href}`}
